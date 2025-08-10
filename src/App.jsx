@@ -10,9 +10,9 @@ import Cart from "./Pages/Cart/Cart";
 import Checkout from "./Pages/Checkout/Checkout";
 import FAQ from "./Components/FAQ/FAQ";
 import Products from "./Pages/Products/Products";
+import About from "./Pages/About/About";
 import "./App.css";
 import { FaSun, FaMoon } from "react-icons/fa";
-
 
 function App() {
   const [darkMode, setDarkMode] = useState(
@@ -49,7 +49,7 @@ function App() {
 
       {/* App Layout */}
       <Navbar />
-      <main >
+      <main>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
@@ -57,8 +57,9 @@ function App() {
           <Route path="/blog" element={<Blog />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
-                <Route path="/faq" element={<FAQ/>} />
-                  <Route path="/products" element={<Products/>} />
+          <Route path="/faq" element={<FAQ />} />
+          <Route path="/products" element={<Products />} />
+          <Route path="/about" element={<About />} />
         </Routes>
       </main>
       <Footer />
