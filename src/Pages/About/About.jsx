@@ -84,7 +84,7 @@ export default function AboutSection({
 
         {/* Image column */}
         <div className="order-1 md:order-2 d-flex items-center ">
-          <div className="relative overflow-hidden rounded-2xl mt-14 shadow-lg ring-1 ring-black/5">
+          <div className="relative overflow-hidden rounded-2xl mt-2 lg:mt-14 sm:mt-3 shadow-lg ring-1 ring-black/5">
             <img
               src={image}
               alt="Fresh vegetables on a market table"

@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Star, Plus, Tag } from "lucide-react";
 
 // Swap these with your real images
@@ -96,6 +97,7 @@ function Rating({ value }) {
 }
 
 function ProductCard({ p, onAdd }) {
+    const navigate = useNavigate();
   return (
     <div className="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 p-4 hover:shadow-md transition">
       <div className="relative aspect-[4/3] rounded-xl overflow-hidden bg-gray-50 dark:bg-gray-800 mb-3">
@@ -104,7 +106,7 @@ function ProductCard({ p, onAdd }) {
             {p.tag}
           </span>
         )}
-        <img src={p.image} alt={p.title} className="w-full h-full object-contain" />
+        <img src={p.image} alt={p.title} className="w-full h-full  " />
       </div>
 
       <p className="text-xs text-gray-500 dark:text-gray-400">{p.category}</p>
@@ -125,12 +127,15 @@ function ProductCard({ p, onAdd }) {
           <span className="text-green-600 font-semibold">${p.price.toFixed(2)}</span>
           <span className="text-xs text-gray-400 line-through">${p.oldPrice.toFixed(2)}</span>
         </div>
-        <button
-          onClick={() => onAdd(p)}
-          className="inline-flex items-center gap-1 text-sm bg-red-500 hover:bg-red-600 text-white rounded-md px-3 py-1.5"
-        >
-          <Plus size={14} /> Add
-        </button>
+     <button
+      onClick={() => {
+        onAdd(p);           
+        navigate("/cart"); 
+      }}
+      className="inline-flex items-center gap-1 text-sm bg-red-500 hover:bg-red-600 text-white rounded-md px-3 py-1.5"
+    >
+      Add
+    </button>
       </div>
     </div>
   );

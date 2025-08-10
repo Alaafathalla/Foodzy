@@ -60,7 +60,7 @@ const Navbar = () => {
             Category <ChevronDown size={14} />
           </Link>
           <Link to="/products" className="flex items-center gap-1">
-            Products <ChevronDown size={14} />
+            Products  
           </Link>
           <Link to="#" className="flex items-center gap-1">
             Pages <ChevronDown size={14} />
