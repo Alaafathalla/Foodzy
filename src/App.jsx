@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Navbar from "./Components/Navbar/Navbar";
 import Home from "./Pages/Home/Home";
 import Footer from "./Components/Footer/Footer";
@@ -14,9 +14,11 @@ import About from "./Pages/About/About";
 import SingleProduct from "./Pages/SingleProduct/SingleProduct";
 import Wishlist from "./Pages/Wishlist/Wishlist";
 import Category from "./Pages/Category/Category";
+import Contact from "./Pages/Contact/Contact";
+import OrderSuccess from "./Pages/OrderSuccess/OrderSuccess";
+import NotFound from "./Pages/NotFound/NotFound";
 import "./App.css";
 import { FaSun, FaMoon } from "react-icons/fa";
-import SingleProductPage from "./Pages/SingleProduct/SingleProduct";
 
 function App() {
   const [darkMode, setDarkMode] = useState(
@@ -65,8 +67,11 @@ function App() {
           <Route path="/products" element={<Products />} />
           <Route path="/category" element={<Category />} />
           <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
           <Route path="/singleproduct" element={<SingleProduct />} />
           <Route path="/wishlist" element={<Wishlist />} />
+          <Route path="/order-success" element={<OrderSuccess />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
       <Footer />
