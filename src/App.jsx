@@ -12,6 +12,7 @@ import FAQ from "./Components/FAQ/FAQ";
 import Products from "./Pages/Products/Products";
 import About from "./Pages/About/About";
 import SingleProduct from "./Pages/SingleProduct/SingleProduct";
+import Wishlist from "./Pages/Wishlist/Wishlist";
 import "./App.css";
 import { FaSun, FaMoon } from "react-icons/fa";
 import SingleProductPage from "./Pages/SingleProduct/SingleProduct";
@@ -62,7 +63,8 @@ function App() {
           <Route path="/faq" element={<FAQ />} />
           <Route path="/products" element={<Products />} />
           <Route path="/about" element={<About />} />
-             <Route path="/singleproduct" element={<SingleProduct />} />
+          <Route path="/singleproduct" element={<SingleProduct />} />
+          <Route path="/wishlist" element={<Wishlist />} />
         </Routes>
       </main>
       <Footer />

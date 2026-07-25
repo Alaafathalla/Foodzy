@@ -11,11 +11,13 @@ import {
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.png";
+import useWishlistStore from "../../store/wishlistStore";
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
+  const wishlistCount = useWishlistStore((state) => state.wishlist.length);
 
   useEffect(() => {
     setIsLoggedIn(!!localStorage.getItem("token"));
@@ -93,7 +95,14 @@ const Navbar = () => {
             ) : (
               <button onClick={logout} className="block text-left text-red-600 w-full">Logout</button>
             )}
-            <Link to="/wishlist" className="block">Wishlist</Link>
+            <Link to="/wishlist" className="block flex items-center justify-between">
+              <span>Wishlist</span>
+              {wishlistCount > 0 && (
+                <span className="bg-red-500 text-white text-xs font-bold rounded-full px-2 py-0.5">
+                  {wishlistCount}
+                </span>
+              )}
+            </Link>
             <Link to="/cart" className="block">Cart</Link>
           </div>
         </div>
@@ -131,9 +140,14 @@ const Navbar = () => {
               <span>Account</span>
             </Link>
           )}
-          <Link to="/wishlist" className="flex items-center gap-1 hover:text-red-500">
+          <Link to="/wishlist" className="flex items-center gap-1 hover:text-red-500 relative">
             <Heart size={18} />
             <span>Wishlist</span>
+            {wishlistCount > 0 && (
+              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                {wishlistCount}
+              </span>
+            )}
           </Link>
           <Link to="/cart" className="flex items-center gap-1 hover:text-red-500">
             <ShoppingCart size={18} />
