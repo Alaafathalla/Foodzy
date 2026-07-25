@@ -13,6 +13,7 @@ import Products from "./Pages/Products/Products";
 import About from "./Pages/About/About";
 import SingleProduct from "./Pages/SingleProduct/SingleProduct";
 import Wishlist from "./Pages/Wishlist/Wishlist";
+import Category from "./Pages/Category/Category";
 import "./App.css";
 import { FaSun, FaMoon } from "react-icons/fa";
 import SingleProductPage from "./Pages/SingleProduct/SingleProduct";
@@ -62,6 +63,7 @@ function App() {
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/faq" element={<FAQ />} />
           <Route path="/products" element={<Products />} />
+          <Route path="/category" element={<Category />} />
           <Route path="/about" element={<About />} />
           <Route path="/singleproduct" element={<SingleProduct />} />
           <Route path="/wishlist" element={<Wishlist />} />

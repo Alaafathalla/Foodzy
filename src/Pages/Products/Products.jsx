@@ -1,6 +1,8 @@
 import React, { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Star, Plus, Tag } from "lucide-react";
+import { Star, Plus, Tag, Heart, ShoppingCart } from "lucide-react";
+import useCartStore from "../../store/cartStore";
+import useWishlistStore from "../../store/wishlistStore";
 
 // Swap these with your real images
 import p1 from "../../assets/products/p1.png";
@@ -96,21 +98,36 @@ function Rating({ value }) {
   );
 }
 
-function ProductCard({ p, onAdd }) {
+function ProductCard({ p, onAdd, isInWishlist, toggleWishlist }) {
     const navigate = useNavigate();
   return (
-    <div className="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 p-4 hover:shadow-md transition">
+    <div className="group rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 p-4 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
       <div className="relative aspect-[4/3] rounded-xl overflow-hidden bg-gray-50 dark:bg-gray-800 mb-3">
         {p.tag && (
-          <span className="absolute left-2 top-2 text-[11px] px-2 py-0.5 rounded-full bg-red-100 text-red-600">
+          <span className={`absolute left-2 top-2 text-[11px] font-bold px-2 py-0.5 rounded-full ${
+            p.tag === "Hot" ? "bg-red-500 text-white" :
+            p.tag === "Sale" ? "bg-orange-500 text-white" :
+            p.tag === "New" ? "bg-green-500 text-white" :
+            "bg-yellow-500 text-black"
+          }`}>
             {p.tag}
           </span>
         )}
-        <img src={p.image} alt={p.title} className="w-full h-full  " />
+        <button
+          onClick={toggleWishlist}
+          className={`absolute right-2 top-2 w-8 h-8 rounded-lg flex items-center justify-center shadow transition ${
+            isInWishlist
+              ? "bg-red-500 text-white"
+              : "bg-white/90 dark:bg-gray-800/90 text-gray-600 dark:text-gray-300 hover:text-red-500"
+          }`}
+        >
+          <Heart size={14} fill={isInWishlist ? "currentColor" : "none"} />
+        </button>
+        <img src={p.image} alt={p.title} className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500 p-2" />
       </div>
 
       <p className="text-xs text-gray-500 dark:text-gray-400">{p.category}</p>
-      <h3 className="mt-1 text-sm font-semibold text-gray-800 dark:text-white line-clamp-2">
+      <h3 className="mt-1 text-sm font-semibold text-gray-800 dark:text-white line-clamp-2 h-10">
         {p.title}
       </h3>
 
@@ -119,12 +136,12 @@ function ProductCard({ p, onAdd }) {
       </div>
 
       <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
-        By <span className="text-green-600">{p.vendor}</span>
+        By <span className="text-green-600 font-medium">{p.vendor}</span>
       </p>
 
-      <div className="mt-2 flex items-center justify-between">
+      <div className="mt-3 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <span className="text-green-600 font-semibold">${p.price.toFixed(2)}</span>
+          <span className="text-red-500 font-bold text-lg">${p.price.toFixed(2)}</span>
           <span className="text-xs text-gray-400 line-through">${p.oldPrice.toFixed(2)}</span>
         </div>
      <button
@@ -132,8 +149,9 @@ function ProductCard({ p, onAdd }) {
         onAdd(p);           
         navigate("/cart"); 
       }}
-      className="inline-flex items-center gap-1 text-sm bg-red-500 hover:bg-red-600 text-white rounded-md px-3 py-1.5"
+      className="inline-flex items-center gap-1 text-sm bg-black hover:bg-red-500 text-white rounded-xl px-3 py-2 transition"
     >
+      <ShoppingCart size={14} />
       Add
     </button>
       </div>
@@ -145,6 +163,8 @@ export default function ProductsPage() {
   const [active, setActive] = useState("All");
   const [query, setQuery] = useState("");
   const [sort, setSort] = useState("popular");
+  const addToCart = useCartStore((state) => state.addToCart);
+  const { isInWishlist, toggleWishlist } = useWishlistStore();
 
   const filtered = useMemo(() => {
     let list = PRODUCTS.filter(p =>
@@ -158,8 +178,7 @@ export default function ProductsPage() {
   }, [active, query, sort]);
 
   const handleAdd = (p) => {
-    // hook this into your cart
-    console.log("ADD TO CART:", p.id);
+    addToCart(p);
   };
 
   return (
@@ -224,7 +243,13 @@ export default function ProductsPage() {
       {/* Grid */}
       <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
         {filtered.map((p) => (
-          <ProductCard key={p.id} p={p} onAdd={handleAdd} />
+          <ProductCard
+            key={p.id}
+            p={p}
+            onAdd={handleAdd}
+            isInWishlist={isInWishlist(p.id)}
+            toggleWishlist={() => toggleWishlist(p)}
+          />
         ))}
       </div>
     </section>
