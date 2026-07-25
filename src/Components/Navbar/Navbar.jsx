@@ -12,12 +12,14 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import useWishlistStore from "../../store/wishlistStore";
+import useCartStore from "../../store/cartStore";
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
   const wishlistCount = useWishlistStore((state) => state.wishlist.length);
+  const cartCount = useCartStore((state) => state.getItemCount());
 
   useEffect(() => {
     setIsLoggedIn(!!localStorage.getItem("token"));
@@ -103,7 +105,14 @@ const Navbar = () => {
                 </span>
               )}
             </Link>
-            <Link to="/cart" className="block">Cart</Link>
+            <Link to="/cart" className="block flex items-center justify-between">
+              <span>Cart</span>
+              {cartCount > 0 && (
+                <span className="bg-red-500 text-white text-xs font-bold rounded-full px-2 py-0.5">
+                  {cartCount}
+                </span>
+              )}
+            </Link>
           </div>
         </div>
       )}
@@ -149,9 +158,14 @@ const Navbar = () => {
               </span>
             )}
           </Link>
-          <Link to="/cart" className="flex items-center gap-1 hover:text-red-500">
+          <Link to="/cart" className="flex items-center gap-1 hover:text-red-500 relative">
             <ShoppingCart size={18} />
             <span>Cart</span>
+            {cartCount > 0 && (
+              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                {cartCount}
+              </span>
+            )}
           </Link>
         </div>
       </div>
