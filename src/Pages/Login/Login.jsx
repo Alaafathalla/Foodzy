@@ -1,11 +1,15 @@
 import React, { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { Eye, EyeOff } from "lucide-react";
-import login from "../../assets/login.png"; 
+import { Eye, EyeOff, AlertCircle } from "lucide-react";
+import login from "../../assets/login.png";
+import { authService } from "../../services";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState(null);
 
   const initialValues = {
     email: "",
@@ -18,19 +22,36 @@ const Login = () => {
     password: Yup.string().min(6, "Password too short").required("Password is required"),
   });
 
-  const onSubmit = (values) => {
-    console.log("Login submitted:", values);
-    // TODO: Add real login logic here (e.g., API call)
+  const onSubmit = async (values, { setSubmitting }) => {
+    setError(null);
+    try {
+      await authService.login({ email: values.email, password: values.password });
+      navigate("/");
+    } catch (err) {
+      setError(err.message || "Login failed. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 px-4 transition-colors duration-300">
-      <div className="w-full max-w-md bg-white dark:bg-gray-800 shadow-md rounded px-8 py-6 space-y-6">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 px-4 py-10 transition-colors duration-300">
+      <div className="w-full max-w-md bg-white dark:bg-gray-800 shadow-2xl rounded-3xl px-8 py-8 space-y-6 overflow-hidden border border-gray-200 dark:border-gray-700">
         {/* Logo */}
         <div className="text-center">
-          <img src= {login} alt="Logo" className="w-16 h-16 mx-auto mb-2" />
-          <h1 className="text-2xl font-semibold text-gray-800 dark:text-white">FoodTrove</h1>
+          <div className="w-20 h-20 mx-auto mb-3 rounded-2xl bg-gradient-to-br from-red-500 to-orange-500 flex items-center justify-center shadow-xl shadow-red-500/30">
+            <img src={login} alt="Logo" className="w-12 h-12 object-contain" />
+          </div>
+          <h1 className="text-3xl font-black text-gray-800 dark:text-white">Welcome Back</h1>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Sign in to continue to Foodzy</p>
         </div>
+
+        {error && (
+          <div className="flex items-center gap-3 p-3 rounded-xl bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-300 text-sm">
+            <AlertCircle size={18} className="flex-shrink-0" />
+            <span className="font-medium">{error}</span>
+          </div>
+        )}
 
         <Formik
           initialValues={initialValues}
@@ -86,21 +107,26 @@ const Login = () => {
                 </a>
               </div>
 
+              {/* Demo hint */}
+              <div className="p-3 rounded-xl bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 text-xs text-blue-700 dark:text-blue-300">
+                💡 <strong>Demo login:</strong> demo@foodzy.com / demo123
+              </div>
+
               {/* Submit */}
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-red-500 hover:bg-red-600 text-white font-medium py-2 rounded-md transition duration-300"
+                className="w-full bg-red-500 hover:bg-red-600 disabled:bg-red-400 text-white font-bold py-3 rounded-xl transition duration-300 shadow-lg shadow-red-500/25"
               >
-                {isSubmitting ? "Logging in..." : "Login"}
+                {isSubmitting ? "Signing in..." : "Sign In"}
               </button>
 
               {/* Signup */}
               <p className="text-center text-sm text-gray-600 dark:text-gray-400">
                 Don’t have an account?{" "}
-                <a href="/register" className="text-red-500 hover:underline">
-                  Signup
-                </a>
+                <Link to="/register" className="text-red-500 font-semibold hover:underline">
+                  Create Account
+                </Link>
               </p>
             </Form>
           )}

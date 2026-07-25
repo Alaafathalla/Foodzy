@@ -1,18 +1,28 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { MapPin, Phone, Mail, Clock, Send, ChevronRight, MessageCircle, Check } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, Send, ChevronRight, MessageCircle, Check, Loader2 } from "lucide-react";
+import { contactService } from "../../services";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({ name: "", email: "", subject: "", message: "" });
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
 
   const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 3000);
-    setFormData({ name: "", email: "", subject: "", message: "" });
+    setSending(true);
+    try {
+      await contactService.submitContact(formData);
+      setSubmitted(true);
+      setTimeout(() => setSubmitted(false), 4000);
+      setFormData({ name: "", email: "", subject: "", message: "" });
+    } catch (err) {
+      alert("Failed to send message. Please try again.");
+    } finally {
+      setSending(false);
+    }
   };
 
   const contactInfo = [
@@ -121,14 +131,20 @@ export default function ContactPage() {
               </div>
               <button
                 type="submit"
-                disabled={submitted}
+                disabled={submitted || sending}
                 className={`w-full sm:w-auto px-10 py-4 rounded-xl font-bold text-white flex items-center gap-2 transition shadow-xl ${
                   submitted
                     ? "bg-green-500 shadow-green-500/20"
+                    : sending
+                    ? "bg-red-400 shadow-none"
                     : "bg-red-500 hover:bg-red-600 shadow-red-500/25 hover:shadow-red-500/40 hover:-translate-y-0.5"
                 }`}
               >
-                {submitted ? (
+                {sending ? (
+                  <>
+                    <Loader2 size={20} className="animate-spin" /> Sending...
+                  </>
+                ) : submitted ? (
                   <>
                     <Check size={20} /> Message Sent!
                   </>

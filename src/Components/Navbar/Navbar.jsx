@@ -6,29 +6,40 @@ import {
   User,
   Heart,
   ShoppingCart,
-  ChevronDown,
   X,
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import useWishlistStore from "../../store/wishlistStore";
 import useCartStore from "../../store/cartStore";
+import { authService } from "../../services";
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(authService.isAuthenticated());
+  const [userName, setUserName] = useState(authService.getCurrentUser()?.name);
   const navigate = useNavigate();
   const wishlistCount = useWishlistStore((state) => state.wishlist.length);
   const cartCount = useCartStore((state) => state.getItemCount());
 
   useEffect(() => {
-    setIsLoggedIn(!!localStorage.getItem("token"));
+    const checkAuth = () => {
+      setIsLoggedIn(authService.isAuthenticated());
+      setUserName(authService.getCurrentUser()?.name);
+    };
+    checkAuth();
+    window.addEventListener("storage", checkAuth);
+    return () => window.removeEventListener("storage", checkAuth);
   }, []);
 
-  const logout = () => {
-    localStorage.removeItem("token");
-    setIsLoggedIn(false);
-    navigate("/login");
+  const logout = async () => {
+    try {
+      await authService.logout();
+    } finally {
+      setIsLoggedIn(false);
+      setUserName(null);
+      navigate("/login");
+    }
   };
 
   return (

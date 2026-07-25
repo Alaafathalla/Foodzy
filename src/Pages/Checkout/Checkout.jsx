@@ -1,7 +1,8 @@
 import React, { useMemo, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { CreditCard, Truck, ChevronRight, MapPin, ShieldCheck, Package, Check, ChevronDown } from "lucide-react";
+import { CreditCard, Truck, ChevronRight, MapPin, ShieldCheck, Package, Check, ChevronDown, Loader2 } from "lucide-react";
 import useCartStore from "../../store/cartStore";
+import { orderService } from "../../services";
 
 export default function CheckoutPage() {
   const navigate = useNavigate();
@@ -11,6 +12,7 @@ export default function CheckoutPage() {
   const [payment, setPayment] = useState("card");
   const [step, setStep] = useState(1);
   const [couponApplied] = useState(false);
+  const [placingOrder, setPlacingOrder] = useState(false);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -33,10 +35,35 @@ export default function CheckoutPage() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const placeOrder = () => {
-    const orderId = "ORD-" + Math.floor(Math.random() * 1000000).toString().padStart(6, "0");
-    clearCart();
-    navigate("/order-success", { state: { orderId, total } });
+  const placeOrder = async () => {
+    setPlacingOrder(true);
+    try {
+      const orderData = {
+        items: cart.map(i => ({ productId: i.id, qty: i.qty, price: i.price })),
+        address: formData,
+        paymentMethod: payment,
+        shippingMethod: delivery,
+        subtotal,
+        discount,
+        shippingCost,
+        tax,
+        total,
+      };
+      const result = await orderService.placeOrder(orderData);
+      clearCart();
+      navigate("/order-success", {
+        state: {
+          orderId: result.orderId,
+          total,
+          trackingNo: result.trackingNo,
+        },
+      });
+    } catch (err) {
+      console.error("Order error:", err);
+      alert("Failed to place order. Please try again.");
+    } finally {
+      setPlacingOrder(false);
+    }
   };
 
   if (cart.length === 0) {
@@ -418,9 +445,16 @@ export default function CheckoutPage() {
 
                 <button
                   onClick={placeOrder}
-                  className="w-full bg-red-500 hover:bg-red-600 text-white py-4 rounded-xl font-black text-base transition shadow-xl shadow-red-500/25 hover:shadow-2xl hover:shadow-red-500/30 hover:-translate-y-0.5"
+                  disabled={placingOrder}
+                  className="w-full bg-red-500 hover:bg-red-600 disabled:bg-red-400 text-white py-4 rounded-xl font-black text-base transition shadow-xl shadow-red-500/25 disabled:shadow-none flex items-center justify-center gap-2"
                 >
-                  Place Order →
+                  {placingOrder ? (
+                    <>
+                      <Loader2 size={20} className="animate-spin" /> Placing Order...
+                    </>
+                  ) : (
+                    "Place Order →"
+                  )}
                 </button>
 
                 <div className="mt-5 flex flex-wrap justify-center gap-2 text-gray-400 dark:text-gray-500 text-xs">
