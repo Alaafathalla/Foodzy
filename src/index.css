@@ -1,5 +1,49 @@
 @import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
+
+/* ==========================================================================
+   Global cursor-pointer for ALL interactive / clickable elements
+   ========================================================================== */
+a,
+button,
+[role="button"],
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+input[type="checkbox"],
+input[type="radio"],
+input[type="range"],
+input[type="image"],
+input[type="file"],
+select,
+option,
+label[for],
+summary,
+[tabindex]:not([tabindex="-1"]),
+[contenteditable="true"] {
+  cursor: pointer !important;
+}
+
+/* Special cases: images inside links/buttons inherit pointer */
+a > img,
+button > img,
+[role="button"] > img {
+  pointer-events: none;
+}
+
+/* Disabled elements should use default/not-allowed */
+:disabled,
+[disabled],
+.disabled {
+  cursor: not-allowed !important;
+  opacity: 0.7;
+}
+
+:disabled *,
+[disabled] * {
+  pointer-events: none;
+}
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
