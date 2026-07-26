@@ -1,120 +1,352 @@
-import React, { useState } from 'react';
-import { Link } from "react-router-dom";
-import { BadgePercent, Truck, Gift, ShoppingBag, Undo2, Headphones, Mail, ArrowRight } from 'lucide-react';
-import ctaGuy from '../../assets/home/delivery.png';
+import React, { useState } from "react"
+import {
+  ArrowRight,
+  BadgePercent,
+  Gift,
+  Headphones,
+  Mail,
+  ShieldCheck,
+  ShoppingBag,
+  Truck,
+  Undo2,
+} from "lucide-react"
+
+import newsletterImage from "../../../dist/assets/home/newsletter-delivery.png"
 
 const features = [
-  { icon: <BadgePercent size={26} />, color: "bg-green-100 dark:bg-green-900/20 text-green-600 dark:text-green-400", title: "Best prices & offers", desc: "Orders $50 or more" },
-  { icon: <Truck size={26} />, color: "bg-blue-100 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400", title: "Free delivery", desc: "24/7 amazing services" },
-  { icon: <Gift size={26} />, color: "bg-yellow-100 dark:bg-yellow-900/20 text-yellow-600 dark:text-yellow-400", title: "Great daily deal", desc: "When you sign up" },
-  { icon: <ShoppingBag size={26} />, color: "bg-purple-100 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400", title: "Wide assortment", desc: "Mega Discounts" },
-  { icon: <Undo2 size={26} />, color: "bg-red-100 dark:bg-red-900/20 text-red-600 dark:text-red-400", title: "Easy returns", desc: "Within 30 days" },
-  { icon: <Headphones size={26} />, color: "bg-orange-100 dark:bg-orange-900/20 text-orange-600 dark:text-orange-400", title: "24/7 Support", desc: "Help you anytime" },
-];
+  {
+    icon: BadgePercent,
+    iconClasses: "bg-emerald-100 text-emerald-600",
+    title: "Best prices & offers",
+    description: "Orders $50 or more",
+  },
+  {
+    icon: Truck,
+    iconClasses: "bg-blue-100 text-blue-600",
+    title: "Free delivery",
+    description: "24/7 amazing services",
+  },
+  {
+    icon: Gift,
+    iconClasses: "bg-amber-100 text-amber-600",
+    title: "Great daily deal",
+    description: "When you sign up",
+  },
+  {
+    icon: ShoppingBag,
+    iconClasses: "bg-purple-100 text-purple-600",
+    title: "Wide assortment",
+    description: "Mega discounts",
+  },
+  {
+    icon: Undo2,
+    iconClasses: "bg-red-100 text-red-600",
+    title: "Easy returns",
+    description: "Within 30 days",
+  },
+  {
+    icon: Headphones,
+    iconClasses: "bg-orange-100 text-orange-600",
+    title: "24/7 Support",
+    description: "Help you anytime",
+  },
+]
 
 export default function CTASection() {
-  const [email, setEmail] = useState("");
-  const [subscribed, setSubscribed] = useState(false);
+  const [email, setEmail] = useState("")
+  const [subscribed, setSubscribed] = useState(false)
+  const [error, setError] = useState("")
 
-  const subscribe = (e) => {
-    e.preventDefault();
-    if (email && email.includes("@")) {
-      setSubscribed(true);
-      setTimeout(() => { setSubscribed(false); setEmail(""); }, 3000);
+  const handleSubscribe = (event) => {
+    event.preventDefault()
+
+    const normalizedEmail = email.trim()
+
+    if (!normalizedEmail || !normalizedEmail.includes("@")) {
+      setError("Please enter a valid email address.")
+      return
     }
-  };
+
+    setError("")
+    setSubscribed(true)
+
+    window.setTimeout(() => {
+      setSubscribed(false)
+      setEmail("")
+    }, 3000)
+  }
 
   return (
-    <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white dark:bg-gray-900 transition-colors duration-300">
-      <div className="max-w-7xl mx-auto space-y-14">
-        {/* CTA Banner */}
-        <div className="relative rounded-3xl overflow-hidden bg-gradient-to-r from-gray-800 via-gray-700 to-gray-900 dark:from-gray-800 dark:via-gray-700 dark:to-black shadow-2xl">
-          {/* Decorative blurs */}
-          <div className="absolute -top-24 -left-24 w-80 h-80 rounded-full bg-red-500/20 blur-3xl" />
-          <div className="absolute top-0 right-0 w-96 h-96 rounded-full bg-blue-500/20 blur-3xl" />
+    <section className="bg-white px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
+      <div className="mx-auto max-w-7xl">
+        {/* Newsletter banner */}
+        <div
+          className="
+            relative isolate overflow-hidden
+            rounded-[24px] bg-[#07101f]
+            shadow-[0_25px_70px_rgba(2,8,23,0.24)]
+            sm:rounded-[30px]
+          "
+        >
+          {/* Background layers */}
+          <div
+            className="
+              pointer-events-none absolute inset-0
+              bg-[linear-gradient(105deg,#344155_0%,#253246_42%,#0d1b30_72%,#020711_100%)]
+            "
+          />
 
-          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 items-center gap-8 p-8 sm:p-10 lg:p-14">
-            <div className="space-y-6 max-w-xl">
-              <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-1.5 text-white text-xs font-bold uppercase tracking-wider">
-                ✨ Newsletter
+          <div
+            className="
+              pointer-events-none absolute
+              -left-24 -top-28 h-[360px] w-[360px]
+              rounded-full bg-rose-500/20 blur-[100px]
+            "
+          />
+
+          <div
+            className="
+              pointer-events-none absolute
+              right-[-100px] top-[-100px]
+              h-[400px] w-[400px]
+              rounded-full bg-blue-500/15 blur-[120px]
+            "
+          />
+
+          <div
+            className="
+              relative z-10 grid min-h-[480px]
+              grid-cols-1 items-center gap-8
+              px-5 py-10
+              sm:px-8 sm:py-12
+              md:px-12
+              lg:min-h-[535px] lg:grid-cols-[1.08fr_0.92fr]
+              lg:px-14 lg:py-12
+              xl:px-20
+            "
+          >
+            {/* Content */}
+            <div className="relative z-20 mx-auto w-full max-w-[610px] text-center lg:mx-0">
+              <div
+                className="
+                  mb-7 inline-flex items-center gap-2
+                  rounded-full border border-white/20
+                  bg-white/10 px-4 py-2
+                  text-[11px] font-extrabold uppercase
+                  tracking-[0.06em] text-white
+                  backdrop-blur-md
+                "
+              >
+                <span aria-hidden="true">✨</span>
+                Newsletter
               </div>
 
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-tight">
+              <h2
+                className="
+                  text-[34px] font-black leading-[1.15]
+                  tracking-[-0.02em] text-white
+                  sm:text-[44px]
+                  lg:text-[48px]
+                  xl:text-[52px]
+                "
+              >
                 Stay home & get your{" "}
-                <span className="bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">
+                <span className="text-[#00d783]">
                   daily needs
                 </span>{" "}
                 from our shop
               </h2>
 
-              <p className="text-white/70 text-base sm:text-lg max-w-lg">
-                Start Your Daily Shopping with <span className="text-green-400 font-semibold">Foodzy</span> and get amazing deals delivered straight to your inbox.
+              <p
+                className="
+                  mx-auto mt-6 max-w-[570px]
+                  text-sm leading-7 text-white/75
+                  sm:text-base
+                  lg:text-[17px]
+                "
+              >
+                Start Your Daily Shopping with{" "}
+                <span className="font-bold text-[#00d783]">
+                  Foodzy
+                </span>{" "}
+                and get amazing deals delivered straight to your inbox.
               </p>
 
-              {/* Subscription Input */}
-              <form onSubmit={subscribe} className="flex flex-col sm:flex-row items-stretch gap-3 w-full max-w-lg">
-                <div className="flex-1 flex items-center bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden border border-white/10">
-                  <div className="pl-4 text-gray-400">
-                    <Mail size={20} />
-                  </div>
+              <form
+                onSubmit={handleSubscribe}
+                className="
+                  mx-auto mt-7 flex max-w-[520px]
+                  flex-col gap-3
+                  sm:flex-row
+                "
+                noValidate
+              >
+                <label
+                  className="
+                    flex min-h-[54px] flex-1 items-center
+                    rounded-[17px] border border-white/10
+                    bg-[#1b2639]/90 px-4
+                    shadow-[0_10px_25px_rgba(0,0,0,0.16)]
+                    transition
+                    focus-within:border-white/25
+                    focus-within:bg-[#202d43]
+                  "
+                >
+                  <Mail
+                    className="h-5 w-5 shrink-0 text-slate-400"
+                    aria-hidden="true"
+                  />
+
                   <input
                     type="email"
-                    required
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={(event) => {
+                      setEmail(event.target.value)
+                      setError("")
+                    }}
                     placeholder="Your email address"
-                    className="flex-1 px-3 py-3.5 text-sm text-gray-700 dark:text-white bg-transparent placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none"
+                    aria-label="Your email address"
+                    className="
+                      h-full w-full bg-transparent
+                      px-3 py-4 text-sm text-white
+                      outline-none
+                      placeholder:text-slate-500
+                    "
                   />
-                </div>
+                </label>
+
                 <button
                   type="submit"
                   disabled={subscribed}
-                  className={`px-7 py-3.5 rounded-2xl font-bold transition-all duration-300 text-white shadow-xl ${
-                    subscribed
-                      ? "bg-green-500 shadow-green-500/30"
-                      : "bg-red-500 hover:bg-red-600 shadow-red-500/30 hover:shadow-red-500/50 hover:-translate-y-0.5"
-                  }`}
+                  className={`
+                    inline-flex min-h-[54px] items-center
+                    justify-center gap-3 rounded-[17px]
+                    px-7 text-sm font-extrabold text-white
+                    shadow-[0_12px_28px_rgba(255,48,65,0.3)]
+                    transition duration-300
+                    disabled:cursor-not-allowed
+                    ${
+                      subscribed
+                        ? "bg-emerald-500"
+                        : "bg-[#ff3041] hover:bg-[#e92536] active:scale-[0.98]"
+                    }
+                  `}
                 >
-                  {subscribed ? "✓ Subscribed!" : (
-                    <span className="flex items-center gap-2">
-                      Subscribe <ArrowRight size={16} />
-                    </span>
+                  {subscribed ? (
+                    "Subscribed!"
+                  ) : (
+                    <>
+                      Subscribe
+                      <ArrowRight className="h-4 w-4" />
+                    </>
                   )}
                 </button>
               </form>
 
-              <p className="text-xs text-white/50">
-                🛡️ 100% Privacy Protected. Unsubscribe anytime.
-              </p>
+              {error && (
+                <p className="mt-3 text-sm font-medium text-red-300">
+                  {error}
+                </p>
+              )}
+
+              <div
+                className="
+                  mt-6 flex items-center justify-center gap-2
+                  text-[11px] text-white/55
+                "
+              >
+                <ShieldCheck
+                  className="h-4 w-4 text-blue-400"
+                  aria-hidden="true"
+                />
+
+                <span>
+                  100% Privacy Protected. Unsubscribe anytime.
+                </span>
+              </div>
             </div>
 
-            {/* Right Image */}
-            <div className="relative hidden lg:flex items-end justify-end">
+            {/* Image */}
+            <div
+              className="
+                relative hidden h-full min-h-[420px]
+                items-end justify-center lg:flex
+              "
+            >
+              <div
+                className="
+                  pointer-events-none absolute
+                  bottom-6 left-1/2 h-24 w-[75%]
+                  -translate-x-1/2 rounded-full
+                  bg-black/55 blur-[34px]
+                "
+              />
+
               <img
-                src={ctaGuy}
-                alt="Delivery"
-                className="relative w-80 xl:w-96 drop-shadow-2xl -mb-14 -mr-4"
+                src={newsletterImage}
+                alt="Grocery delivery service"
+                className="
+                  relative z-10 max-h-[435px]
+                  w-full max-w-[500px]
+                  object-contain object-bottom
+                  drop-shadow-[0_24px_28px_rgba(0,0,0,0.45)]
+                "
               />
             </div>
           </div>
         </div>
 
-        {/* Feature Icons */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-5">
-          {features.map((item, i) => (
-            <div
-              key={i}
-              className="group bg-gray-50 dark:bg-gray-800/50 border border-gray-100 dark:border-gray-700 rounded-2xl p-5 sm:p-6 shadow-sm hover:shadow-2xl hover:border-red-200 dark:hover:border-red-900/60 hover:-translate-y-1 transition-all duration-400"
-            >
-              <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform ${item.color}`}>
-                {item.icon}
-              </div>
-              <p className="font-bold text-gray-900 dark:text-white text-sm sm:text-base mb-1 leading-snug">{item.title}</p>
-              <p className="text-gray-500 dark:text-gray-400 text-xs sm:text-sm leading-snug">{item.desc}</p>
-            </div>
-          ))}
+        {/* Features */}
+        <div
+          className="
+            mt-10 grid grid-cols-2 gap-4
+            sm:grid-cols-3
+            lg:mt-14 lg:grid-cols-6
+          "
+        >
+          {features.map((feature) => {
+            const Icon = feature.icon
+
+            return (
+              <article
+                key={feature.title}
+                className="
+                  group rounded-[18px]
+                  border border-slate-100
+                  bg-[#fafafa] p-4
+                  shadow-[0_7px_24px_rgba(15,23,42,0.04)]
+                  transition duration-300
+                  hover:-translate-y-1
+                  hover:border-slate-200
+                  hover:shadow-[0_16px_35px_rgba(15,23,42,0.08)]
+                  sm:p-5
+                "
+              >
+                <div
+                  className={`
+                    mb-4 flex h-12 w-12
+                    items-center justify-center
+                    rounded-[15px]
+                    transition-transform duration-300
+                    group-hover:scale-105
+                    ${feature.iconClasses}
+                  `}
+                >
+                  <Icon className="h-6 w-6" />
+                </div>
+
+                <h3 className="text-sm font-extrabold leading-5 text-slate-900">
+                  {feature.title}
+                </h3>
+
+                <p className="mt-1 text-xs leading-5 text-slate-500">
+                  {feature.description}
+                </p>
+              </article>
+            )
+          })}
         </div>
       </div>
     </section>
-  );
+  )
 }
