@@ -20,14 +20,14 @@ import p8 from "../../assets/products/p8.png";
 import p9 from "../../assets/products/p9.png";
 
 const CATEGORIES = [
-  { id: "all", name: "All Products", image: item4, count: 205, color: "from-red-500 to-orange-500" },
-  { id: "main-dish", name: "Main Dish", image: item1, count: 98, color: "from-orange-500 to-amber-500" },
-  { id: "breakfast", name: "Breakfast", image: item2, count: 62, color: "from-yellow-500 to-lime-500" },
-  { id: "dessert", name: "Dessert", image: item3, count: 48, color: "from-pink-500 to-rose-500" },
-  { id: "fruits", name: "Fruits & Vegetables", image: item5, count: 73, color: "from-green-500 to-emerald-500" },
-  { id: "dairy", name: "Milks & Dairies", image: p6, count: 41, color: "from-sky-500 to-blue-500" },
-  { id: "drinks", name: "Coffees & Teas", image: p7, count: 35, color: "from-amber-700 to-yellow-900" },
-  { id: "meat", name: "Meats & Seafood", image: p2, count: 29, color: "from-red-600 to-rose-700" },
+  { id: "all", name: "All Products", image: item4, count: 205 },
+  { id: "main-dish", name: "Main Dish", image: item1, count: 98 },
+  { id: "breakfast", name: "Breakfast", image: item2, count: 62 },
+  { id: "dessert", name: "Dessert", image: item3, count: 48 },
+  { id: "fruits", name: "Fruits & Vegetables", image: item5, count: 73 },
+  { id: "dairy", name: "Milks & Dairies", image: p6, count: 41 },
+  { id: "drinks", name: "Coffees & Teas", image: p7, count: 35 },
+  { id: "meat", name: "Meats & Seafood", image: p2, count: 29 },
 ];
 
 const PRODUCTS = [
@@ -87,13 +87,13 @@ export default function CategoryPage() {
       <div className="border-b border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <nav className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
-            <Link to="/" className="hover:text-red-500 transition">Home</Link>
+            <Link to="/" className="hover:text-slate-400 transition">Home</Link>
             <ChevronRight size={14} />
             <span className="text-gray-900 dark:text-white font-medium">Categories</span>
             {selectedCategory !== "all" && (
               <>
                 <ChevronRight size={14} />
-                <span className="text-red-500 font-medium">{activeCategory?.name}</span>
+                <span className="text-slate-300 font-medium">{activeCategory?.name}</span>
               </>
             )}
           </nav>
@@ -103,7 +103,7 @@ export default function CategoryPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Page Header */}
         <div className="mb-10">
-          <p className="text-red-500 font-semibold tracking-wide mb-2">BROWSE BY CATEGORY</p>
+          <p className="text-slate-400 font-semibold tracking-wide mb-2">BROWSE BY CATEGORY</p>
           <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">
             Explore Our Categories
           </h1>
@@ -120,12 +120,12 @@ export default function CategoryPage() {
               onClick={() => setSelectedCategory(cat.id)}
               className={`group relative rounded-2xl overflow-hidden border-2 transition-all duration-300 ${
                 selectedCategory === cat.id
-                  ? "border-red-500 shadow-xl shadow-red-500/10 scale-[1.02]"
+                  ? "border-slate-500 shadow-xl shadow-slate-900/20 scale-[1.02]"
                   : "border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 hover:shadow-lg"
               }`}
             >
               <div className="p-4 bg-white dark:bg-gray-800 h-full">
-                <div className={`w-16 h-16 mx-auto mb-3 rounded-2xl bg-gradient-to-br ${cat.color} flex items-center justify-center shadow-lg`}>
+                <div className="w-16 h-16 mx-auto mb-3 rounded-2xl bg-gradient-to-br from-slate-500 to-slate-700 flex items-center justify-center shadow-lg shadow-slate-900/20">
                   <img src={cat.image} alt={cat.name} className="w-10 h-10 object-contain" />
                 </div>
                 <h3 className="font-bold text-gray-900 dark:text-white text-sm text-center line-clamp-1">
@@ -136,7 +136,7 @@ export default function CategoryPage() {
                 </p>
               </div>
               {selectedCategory === cat.id && (
-                <div className="absolute top-2 right-2 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center">
+                <div className="absolute top-2 right-2 w-5 h-5 bg-slate-600 rounded-full flex items-center justify-center">
                   <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                   </svg>
@@ -148,7 +148,7 @@ export default function CategoryPage() {
 
         {/* Featured Banner (Active Category) */}
         {selectedCategory !== "all" && activeCategory && (
-          <div className={`mb-10 rounded-3xl bg-gradient-to-r ${activeCategory.color} p-8 sm:p-12 overflow-hidden relative`}>
+          <div className="mb-10 rounded-3xl bg-gradient-to-r from-slate-600 to-slate-800 p-8 sm:p-12 overflow-hidden relative">
             <div className="relative z-10 flex flex-col sm:flex-row items-center justify-between gap-6">
               <div className="text-white max-w-lg">
                 <p className="text-white/80 font-medium mb-2">{activeCategory.count} Products Available</p>
@@ -160,7 +160,7 @@ export default function CategoryPage() {
                   Shop Now →
                 </button>
               </div>
-              <div className="w-40 h-40 bg-white/20 rounded-3xl flex items-center justify-center backdrop-blur-sm">
+              <div className="w-40 h-40 bg-white/15 rounded-3xl flex items-center justify-center backdrop-blur-sm border border-white/10">
                 <img src={activeCategory.image} alt={activeCategory.name} className="w-28 h-28 object-contain" />
               </div>
             </div>
@@ -175,7 +175,7 @@ export default function CategoryPage() {
           <aside className="lg:col-span-1 space-y-6">
             <div className="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6">
               <div className="flex items-center gap-2 mb-5">
-                <Filter size={18} className="text-red-500" />
+                <Filter size={18} className="text-slate-400" />
                 <h3 className="text-lg font-bold text-gray-900 dark:text-white">Filters</h3>
               </div>
 
@@ -193,9 +193,9 @@ export default function CategoryPage() {
                         type="radio"
                         checked={priceRange === pr.id}
                         onChange={() => setPriceRange(pr.id)}
-                        className="w-4 h-4 text-red-500 accent-red-500"
+                        className="w-4 h-4 text-slate-500 accent-slate-500"
                       />
-                      <span className="text-sm text-gray-700 dark:text-gray-300 group-hover:text-red-500 transition">
+                      <span className="text-sm text-gray-700 dark:text-gray-300 group-hover:text-slate-400 transition">
                         {pr.label}
                       </span>
                     </label>
@@ -209,7 +209,7 @@ export default function CategoryPage() {
                   {["Hot", "Sale", "New", "-18%"].map((tag) => (
                     <span
                       key={tag}
-                      className="px-3 py-1 rounded-full text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-red-50 hover:text-red-500 cursor-pointer transition"
+                      className="px-3 py-1 rounded-full text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-slate-100 dark:hover:bg-slate-600 hover:text-slate-700 dark:hover:text-slate-100 cursor-pointer transition"
                     >
                       {tag}
                     </span>
@@ -219,11 +219,11 @@ export default function CategoryPage() {
             </div>
 
             {/* Promo Card */}
-            <div className="rounded-2xl overflow-hidden bg-gradient-to-br from-red-500 to-orange-500 p-6 text-white">
+            <div className="rounded-2xl overflow-hidden bg-gradient-to-br from-slate-600 to-slate-800 p-6 text-white">
               <h3 className="text-xl font-bold mb-2">Super Deal!</h3>
               <p className="text-white/90 text-sm mb-4">Get 20% off on your first order!</p>
               <p className="text-2xl font-black mb-4">SAVE20</p>
-              <button className="w-full bg-white text-red-500 py-2 rounded-xl font-bold text-sm hover:bg-gray-100 transition">
+              <button className="w-full bg-white text-slate-700 py-2 rounded-xl font-bold text-sm hover:bg-gray-100 transition">
                 Shop Now
               </button>
             </div>
@@ -245,7 +245,7 @@ export default function CategoryPage() {
                 <select
                   value={sort}
                   onChange={(e) => setSort(e.target.value)}
-                  className="px-4 py-2.5 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                  className="px-4 py-2.5 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-transparent"
                 >
                   <option value="popular">Most Popular</option>
                   <option value="price-asc">Price: Low → High</option>
@@ -293,7 +293,7 @@ export default function CategoryPage() {
                 <p className="text-gray-500 dark:text-gray-400 mb-6">Try adjusting your filters to find what you need.</p>
                 <button
                   onClick={() => { setSelectedCategory("all"); setPriceRange("all"); }}
-                  className="bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-xl font-semibold transition"
+                  className="bg-slate-600 hover:bg-slate-700 text-white px-6 py-3 rounded-xl font-semibold transition"
                 >
                   Reset Filters
                 </button>
@@ -317,7 +317,7 @@ function ProductCard({ product, onAddToCart, isInWishlist, toggleWishlist }) {
         />
         {product.tag && (
           <span className={`absolute top-3 left-3 text-xs font-bold px-2.5 py-1 rounded-lg ${
-            product.tag === "Hot" ? "bg-red-500 text-white" :
+            product.tag === "Hot" ? "bg-slate-600 text-white" :
             product.tag === "Sale" ? "bg-orange-500 text-white" :
             product.tag === "New" ? "bg-green-500 text-white" :
             "bg-yellow-500 text-black"
@@ -329,8 +329,8 @@ function ProductCard({ product, onAddToCart, isInWishlist, toggleWishlist }) {
           onClick={toggleWishlist}
           className={`absolute top-3 right-3 w-9 h-9 rounded-xl flex items-center justify-center shadow-md transition ${
             isInWishlist
-              ? "bg-red-500 text-white"
-              : "bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:text-red-500"
+              ? "bg-slate-600 text-white"
+              : "bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:text-slate-500"
           }`}
         >
           <Heart size={16} fill={isInWishlist ? "currentColor" : "none"} />
@@ -338,7 +338,7 @@ function ProductCard({ product, onAddToCart, isInWishlist, toggleWishlist }) {
       </div>
 
       <div className="p-5">
-        <p className="text-xs text-red-500 font-semibold mb-1 capitalize">{product.category.replace("-", " ")}</p>
+        <p className="text-xs text-slate-500 dark:text-slate-400 font-semibold mb-1 capitalize">{product.category.replace("-", " ")}</p>
         <h3 className="font-semibold text-gray-900 dark:text-white line-clamp-2 mb-2 h-11">
           {product.title}
         </h3>
@@ -360,7 +360,7 @@ function ProductCard({ product, onAddToCart, isInWishlist, toggleWishlist }) {
           </div>
           <button
             onClick={() => onAddToCart(product)}
-            className="w-10 h-10 rounded-xl bg-black hover:bg-red-500 text-white flex items-center justify-center transition"
+            className="w-10 h-10 rounded-xl bg-black hover:bg-slate-600 text-white flex items-center justify-center transition"
             title="Add to Cart"
           >
             <ShoppingCart size={18} />
@@ -383,7 +383,7 @@ function ProductListCard({ product, onAddToCart, isInWishlist, toggleWishlist })
           />
           {product.tag && (
             <span className={`absolute top-3 left-3 text-xs font-bold px-2.5 py-1 rounded-lg ${
-              product.tag === "Hot" ? "bg-red-500 text-white" :
+              product.tag === "Hot" ? "bg-slate-600 text-white" :
               product.tag === "Sale" ? "bg-orange-500 text-white" :
               product.tag === "New" ? "bg-green-500 text-white" :
               "bg-yellow-500 text-black"
@@ -394,7 +394,7 @@ function ProductListCard({ product, onAddToCart, isInWishlist, toggleWishlist })
         </div>
 
         <div className="flex-1 p-5 sm:p-6 flex flex-col">
-          <p className="text-xs text-red-500 font-semibold mb-1 capitalize">{product.category.replace("-", " ")}</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400 font-semibold mb-1 capitalize">{product.category.replace("-", " ")}</p>
           <h3 className="font-bold text-lg text-gray-900 dark:text-white mb-2">
             {product.title}
           </h3>
@@ -422,15 +422,15 @@ function ProductListCard({ product, onAddToCart, isInWishlist, toggleWishlist })
                 onClick={toggleWishlist}
                 className={`w-11 h-11 rounded-xl border-2 flex items-center justify-center transition ${
                   isInWishlist
-                    ? "border-red-500 bg-red-50 text-red-500 dark:bg-red-900/20"
-                    : "border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:border-red-500 hover:text-red-500"
+                    ? "border-slate-500 bg-slate-50 text-slate-600 dark:bg-slate-900/30 dark:text-slate-300"
+                    : "border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:border-slate-500 hover:text-slate-500"
                 }`}
               >
                 <Heart size={18} fill={isInWishlist ? "currentColor" : "none"} />
               </button>
               <button
                 onClick={() => onAddToCart(product)}
-                className="px-6 py-3 rounded-xl bg-black hover:bg-red-500 text-white font-semibold flex items-center gap-2 transition"
+                className="px-6 py-3 rounded-xl bg-black hover:bg-slate-600 text-white font-semibold flex items-center gap-2 transition"
               >
                 <ShoppingCart size={18} />
                 Add to Cart
