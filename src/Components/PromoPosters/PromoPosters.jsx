@@ -95,14 +95,6 @@ export default function PromoPosters() {
                 key={poster.title}
                 className={`group relative overflow-hidden rounded-3xl border ${poster.border} bg-gradient-to-br ${poster.background} p-7 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl dark:border-gray-800 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800`}
               >
-                {/* soft decorative circles */}
-
-                <div className="absolute -right-12 -top-12 h-44 w-44 rounded-full bg-white/60 blur-2xl dark:bg-white/5" />
-
-                <div className="absolute bottom-0 right-0 h-40 w-40 rounded-full border border-gray-200/60 dark:border-white/5" />
-
-                {/* badge */}
-
                 <div className="flex items-center justify-between">
                   <div
                     className={`flex h-12 w-12 items-center justify-center rounded-2xl ${poster.iconBg}`}
@@ -139,16 +131,13 @@ export default function PromoPosters() {
                   className={`mt-8 inline-flex items-center gap-2 rounded-xl ${poster.accent} px-5 py-3 text-sm font-bold text-white transition hover:scale-[1.03]`}
                 >
                   {poster.action}
-
                   <ArrowRight size={17} />
                 </Link>
 
-                {/* bottom decoration */}
-
                 <div className="absolute bottom-7 right-7 flex gap-2 opacity-30">
-                  <span className="h-2 w-2 rounded-full bg-gray-400"></span>
-                  <span className="h-2 w-2 rounded-full bg-gray-400"></span>
-                  <span className="h-2 w-2 rounded-full bg-gray-400"></span>
+                  <span className="h-2 w-2 rounded-full bg-gray-400" />
+                  <span className="h-2 w-2 rounded-full bg-gray-400" />
+                  <span className="h-2 w-2 rounded-full bg-gray-400" />
                 </div>
               </article>
             );
