@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Heart, Trash2, ShoppingCart, ChevronLeft } from "lucide-react";
 import useWishlistStore from "../../store/wishlistStore";
+import useCartStore from "../../store/cartStore";
 import cart6 from "../../assets/cart/6.png";
 import cart7 from "../../assets/cart/7.png";
 import cart8 from "../../assets/cart/8.png";
@@ -9,6 +10,7 @@ import cart9 from "../../assets/cart/9.png";
 
 function ProductCard({ product }) {
   const { addToWishlist, isInWishlist } = useWishlistStore();
+  const addToCart = useCartStore((state) => state.addToCart);
   const inWishlist = isInWishlist(product.id);
   
   return (
@@ -39,7 +41,7 @@ function ProductCard({ product }) {
         </div>
 
         <div className="mt-3 flex gap-2">
-          <button className="flex-1 rounded-md border border-gray-200 dark:border-gray-700 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-800">
+          <button onClick={() => addToCart(product)} className="flex-1 rounded-md border border-gray-200 dark:border-gray-700 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-800">
             Add to Cart
           </button>
           <button
@@ -56,6 +58,7 @@ function ProductCard({ product }) {
 
 export default function WishlistPage() {
   const { wishlist, removeFromWishlist } = useWishlistStore();
+  const addToCart = useCartStore((state) => state.addToCart);
 
   const popularProducts = [
     {
@@ -141,7 +144,7 @@ export default function WishlistPage() {
                   </div>
 
                   <div className="col-span-2 flex items-center justify-center gap-2">
-                    <button className="bg-black hover:bg-gray-800 text-white px-4 py-2 rounded-md text-sm flex items-center gap-1">
+                    <button onClick={() => addToCart(item)} className="bg-black hover:bg-gray-800 text-white px-4 py-2 rounded-md text-sm flex items-center gap-1">
                       <ShoppingCart size={16} />
                       Add to Cart
                     </button>
@@ -181,7 +184,7 @@ export default function WishlistPage() {
                       <Trash2 size={16} />
                     </button>
                   </div>
-                  <button className="w-full bg-black hover:bg-gray-800 text-white px-4 py-2 rounded-md text-sm flex items-center justify-center gap-1">
+                  <button onClick={() => addToCart(item)} className="w-full bg-black hover:bg-gray-800 text-white px-4 py-2 rounded-md text-sm flex items-center justify-center gap-1">
                     <ShoppingCart size={16} />
                     Add to Cart
                   </button>

@@ -19,12 +19,22 @@ import OrderSuccess from "./Pages/OrderSuccess/OrderSuccess";
 import NotFound from "./Pages/NotFound/NotFound";
 import "./App.css";
 import { FaSun, FaMoon } from "react-icons/fa";
+import useCartStore from "./store/cartStore";
+import useWishlistStore from "./store/wishlistStore";
 
 function App() {
   const [darkMode, setDarkMode] = useState(
     localStorage.getItem("theme") === "dark"
   );
   // const [isLoggedIn, setIsLoggedIn] = useState(false); // Fake auth for now
+
+  const hydrateCart = useCartStore((state) => state.hydrateCart);
+  const hydrateWishlist = useWishlistStore((state) => state.hydrateWishlist);
+
+  useEffect(() => {
+    hydrateCart();
+    hydrateWishlist();
+  }, [hydrateCart, hydrateWishlist]);
 
   useEffect(() => {
     const root = document.documentElement;

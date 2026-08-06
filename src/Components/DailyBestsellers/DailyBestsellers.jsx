@@ -136,8 +136,9 @@ export default function DailyBestsellers() {
 
                     {/* Quick Add */}
                     <button
+                      type="button"
                       onClick={() => { addToCart(p); navigate("/cart"); }}
-                      className="absolute bottom-3 left-1/2 -translate-x-1/2 z-10 flex items-center gap-2 bg-black hover:bg-red-500 text-white text-xs font-bold px-5 py-2.5 rounded-xl shadow-xl transition-all duration-300 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0"
+                      className="absolute bottom-3 left-1/2 z-10 inline-flex min-w-[132px] -translate-x-1/2 translate-y-2 items-center justify-center gap-2 rounded-full bg-red-500 px-5 py-2.5 text-xs font-bold text-white opacity-0 shadow-lg transition-all duration-300 hover:bg-red-600 hover:shadow-xl group-hover:translate-y-0 group-hover:opacity-100 active:scale-95"
                     >
                       <ShoppingCart size={14} />
                       Add to Cart

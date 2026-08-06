@@ -33,8 +33,14 @@ function ProductCard({ p, onAdd, isInWishlist, toggleWishlist }) {
           </span>
         )}
         <button
-          onClick={toggleWishlist}
-          className={`absolute right-2 top-2 w-8 h-8 rounded-lg flex items-center justify-center shadow transition ${
+          type="button"
+          onClick={(event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            toggleWishlist();
+          }}
+          aria-label={isInWishlist ? "Remove from wishlist" : "Add to wishlist"}
+          className={`absolute right-2 top-2 z-10 w-9 h-9 rounded-full flex items-center justify-center shadow transition-all duration-300 hover:scale-110 ${
             isInWishlist
               ? "bg-red-500 text-white"
               : "bg-white/90 dark:bg-gray-800/90 text-gray-600 dark:text-gray-300 hover:text-red-500"
@@ -68,7 +74,7 @@ function ProductCard({ p, onAdd, isInWishlist, toggleWishlist }) {
             onAdd(p);
             navigate("/cart");
           }}
-          className="inline-flex items-center gap-1 text-sm bg-black hover:bg-red-500 text-white rounded-xl px-3 py-2 transition"
+          className="inline-flex items-center justify-center gap-1.5 rounded-full bg-red-500 px-4 py-2 text-sm font-bold text-white shadow-sm transition-all duration-300 hover:bg-red-600 hover:shadow-md active:scale-95"
         >
           <ShoppingCart size={14} />
           Add

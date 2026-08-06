@@ -49,9 +49,9 @@ button > img,
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color-scheme: light;
+  color: #111827;
+  background-color: #ffffff;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -110,3 +110,6 @@ html, body, #root {
 
 
 }
+
+html.dark { color-scheme: dark; }
+img { max-width: 100%; }

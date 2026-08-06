@@ -81,15 +81,15 @@ export default function CTASection() {
   }
 
   return (
-    <section className="bg-[#020817] px-4 py-14 sm:px-6 sm:py-18 lg:px-8">
+    <section className="bg-slate-50 px-4 py-14 text-slate-900 dark:bg-[#020817] dark:text-white sm:px-6 sm:py-18 lg:px-8">
       <div className="mx-auto max-w-7xl">
         {/* Newsletter banner */}
         <div
           className="
             relative isolate overflow-hidden
-            rounded-[24px] border border-white/10
-            bg-[#07101f]
-            shadow-[0_25px_70px_rgba(2,8,23,0.45)]
+            rounded-[24px] border border-slate-200 dark:border-white/10
+            bg-white dark:bg-[#07101f]
+            shadow-[0_25px_70px_rgba(15,23,42,0.10)] dark:shadow-[0_25px_70px_rgba(2,8,23,0.45)]
             sm:rounded-[30px]
           "
         >
@@ -97,7 +97,7 @@ export default function CTASection() {
           <div
             className="
               pointer-events-none absolute inset-0
-              bg-[linear-gradient(130deg,#142033_0%,#0d1727_42%,#08111e_72%,#040914_100%)]
+              bg-[linear-gradient(130deg,#ffffff_0%,#f8fafc_45%,#eef2f7_100%)] dark:bg-[linear-gradient(130deg,#142033_0%,#0d1727_42%,#08111e_72%,#040914_100%)]
             "
           />
 
@@ -143,7 +143,7 @@ export default function CTASection() {
                     rounded-full border border-white/15
                     bg-white/8 px-4 py-2
                     text-[11px] font-extrabold uppercase
-                    tracking-[0.08em] text-white
+                    tracking-[0.08em] text-slate-700 dark:text-white
                     backdrop-blur-md
                   "
                 >
@@ -154,14 +154,14 @@ export default function CTASection() {
                 <h2
                   className="
                     text-[34px] font-black leading-[1.12]
-                    tracking-[-0.02em] text-white
+                    tracking-[-0.02em] text-slate-950 dark:text-white
                     sm:text-[44px]
                     lg:text-[50px]
                     xl:text-[56px]
                   "
                 >
                   Fresh groceries, exclusive deals,
-                  <span className="mt-1 block text-white/85">
+                  <span className="mt-1 block text-slate-700 dark:text-white/85">
                     and faster delivery
                   </span>
                 </h2>
@@ -169,7 +169,7 @@ export default function CTASection() {
                 <p
                   className="
                     mx-auto mt-6 max-w-[570px]
-                    text-sm leading-7 text-slate-300
+                    text-sm leading-7 text-slate-600 dark:text-slate-300
                     sm:text-base
                     lg:mx-0 lg:text-[17px]
                   "
@@ -291,7 +291,7 @@ export default function CTASection() {
                     <p className="text-3xl font-black tracking-[-0.03em] text-white">
                       {item.value}
                     </p>
-                    <p className="mt-2 text-sm font-medium text-slate-300">
+                    <p className="mt-2 text-sm font-medium text-slate-600 dark:text-slate-300">
                       {item.label}
                     </p>
                   </div>
