@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from "react";
+<<<<<<< HEAD
 import { Camera, ChevronRight, Clock3, Mail, MapPin, PackageCheck, Phone, Save, ShieldCheck, ShoppingBag, Truck, UserRound } from "lucide-react";
 import { Link } from "react-router-dom";
 import { authService } from "../../services";
@@ -15,6 +16,12 @@ const recentOrders = [
   { id: "FDZ-1923", date: "Jul 22, 2026", total: "$48.75", status: "Delivered" },
 ];
 
+=======
+import { Camera, Mail, MapPin, Phone, Save, ShieldCheck, UserRound } from "lucide-react";
+import { authService } from "../../services";
+import { notify } from "../../Components/Toast/ToastProvider";
+
+>>>>>>> e58e0048bc8f63c97e42ffce1f315267b42aecc0
 export default function Profile() {
   const currentUser = useMemo(() => authService.getCurrentUser() || {}, []);
   const [form, setForm] = useState({
@@ -25,7 +32,14 @@ export default function Profile() {
     city: currentUser.city || "New York",
   });
 
+<<<<<<< HEAD
   const handleChange = (event) => setForm((current) => ({ ...current, [event.target.name]: event.target.value }));
+=======
+  const handleChange = (event) => {
+    setForm((current) => ({ ...current, [event.target.name]: event.target.value }));
+  };
+
+>>>>>>> e58e0048bc8f63c97e42ffce1f315267b42aecc0
   const handleSubmit = (event) => {
     event.preventDefault();
     localStorage.setItem("user", JSON.stringify({ ...currentUser, ...form }));
@@ -34,6 +48,7 @@ export default function Profile() {
   };
 
   return (
+<<<<<<< HEAD
     <section className="min-h-screen bg-gray-50 px-4 py-10 dark:bg-gray-950 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <div className="mb-8">
@@ -58,6 +73,27 @@ export default function Profile() {
             <h2 className="text-center text-xl font-black text-gray-900 dark:text-white">{form.name}</h2>
             <p className="mt-1 text-center text-sm text-gray-500 dark:text-gray-400">Foodzy customer</p>
             <div className="mt-6 space-y-3 border-t border-gray-100 pt-6 dark:border-gray-800">
+=======
+    <section className="min-h-screen bg-gray-50 px-4 py-12 dark:bg-gray-900">
+      <div className="mx-auto max-w-6xl">
+        <div className="mb-8">
+          <p className="mb-2 text-sm font-bold uppercase tracking-[0.2em] text-red-500">My account</p>
+          <h1 className="text-3xl font-black text-gray-900 dark:text-white sm:text-4xl">Profile settings</h1>
+          <p className="mt-2 text-gray-500 dark:text-gray-400">Manage your personal details and delivery information.</p>
+        </div>
+
+        <div className="grid gap-8 lg:grid-cols-[320px_1fr]">
+          <aside className="h-fit rounded-3xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+            <div className="relative mx-auto mb-5 flex h-32 w-32 items-center justify-center rounded-full bg-gradient-to-br from-red-400 to-orange-400 text-white shadow-xl">
+              <UserRound size={54} />
+              <button type="button" className="absolute bottom-1 right-1 flex h-10 w-10 items-center justify-center rounded-full border-4 border-white bg-gray-900 text-white dark:border-gray-800">
+                <Camera size={16} />
+              </button>
+            </div>
+            <h2 className="text-center text-xl font-black text-gray-900 dark:text-white">{form.name}</h2>
+            <p className="mt-1 text-center text-sm text-gray-500 dark:text-gray-400">Foodzy customer</p>
+            <div className="mt-6 space-y-3 border-t border-gray-100 pt-6 dark:border-gray-700">
+>>>>>>> e58e0048bc8f63c97e42ffce1f315267b42aecc0
               <Info icon={Mail} text={form.email} />
               <Info icon={Phone} text={form.phone} />
               <Info icon={MapPin} text={`${form.address}, ${form.city}`} />
@@ -68,6 +104,7 @@ export default function Profile() {
             </div>
           </aside>
 
+<<<<<<< HEAD
           <div className="space-y-8">
             <div className="rounded-3xl border border-gray-200 bg-white p-5 shadow-sm dark:border-gray-800 dark:bg-gray-900 sm:p-8">
               <div className="mb-6 flex items-center justify-between gap-4">
@@ -103,13 +140,47 @@ export default function Profile() {
               </div>
             </div>
           </div>
+=======
+          <form onSubmit={handleSubmit} className="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800 sm:p-8">
+            <h2 className="mb-7 text-xl font-black text-gray-900 dark:text-white">Personal information</h2>
+            <div className="grid gap-5 sm:grid-cols-2">
+              <Field label="Full name" name="name" value={form.name} onChange={handleChange} />
+              <Field label="Email address" name="email" type="email" value={form.email} onChange={handleChange} />
+              <Field label="Phone number" name="phone" value={form.phone} onChange={handleChange} />
+              <Field label="City" name="city" value={form.city} onChange={handleChange} />
+              <div className="sm:col-span-2">
+                <Field label="Delivery address" name="address" value={form.address} onChange={handleChange} />
+              </div>
+            </div>
+            <div className="mt-8 flex justify-end">
+              <button type="submit" className="inline-flex items-center gap-2 rounded-xl bg-red-500 px-6 py-3 font-bold text-white transition hover:bg-red-600">
+                <Save size={18} /> Save changes
+              </button>
+            </div>
+          </form>
+>>>>>>> e58e0048bc8f63c97e42ffce1f315267b42aecc0
         </div>
       </div>
     </section>
   );
 }
 
+<<<<<<< HEAD
 function Stat({ icon: Icon, label, value }) { return <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm dark:border-gray-800 dark:bg-gray-900"><div className="flex items-center justify-between"><div><p className="text-sm text-gray-500 dark:text-gray-400">{label}</p><p className="mt-2 text-2xl font-black text-gray-900 dark:text-white">{value}</p></div><span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-red-50 text-red-500 dark:bg-red-500/10"><Icon size={22} /></span></div></div>; }
 function ActiveOrder({ order }) { const Icon = order.icon; return <div className="rounded-2xl border border-gray-100 bg-gray-50 p-4 dark:border-gray-800 dark:bg-gray-800/70"><div className="flex items-start justify-between gap-4"><span className={`flex h-11 w-11 items-center justify-center rounded-xl ${order.tone}`}><Icon size={21} /></span><span className="rounded-full bg-white px-3 py-1 text-xs font-bold text-gray-600 shadow-sm dark:bg-gray-900 dark:text-gray-300">{order.status}</span></div><p className="mt-4 font-black text-gray-900 dark:text-white">Order #{order.id}</p><p className="mt-1 text-sm text-gray-500 dark:text-gray-400">{order.date} · {order.total}</p></div>; }
 function Field({ label, ...props }) { return <label className="block"><span className="mb-2 block text-sm font-bold text-gray-700 dark:text-gray-200">{label}</span><input {...props} className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-gray-900 outline-none transition focus:border-red-500 focus:ring-4 focus:ring-red-500/10 dark:border-gray-700 dark:bg-gray-950 dark:text-white" /></label>; }
 function Info({ icon: Icon, text }) { return <div className="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-300"><Icon size={17} className="shrink-0 text-red-500" /><span className="truncate">{text}</span></div>; }
+=======
+function Field({ label, ...props }) {
+  return (
+    <label className="block">
+      <span className="mb-2 block text-sm font-bold text-gray-700 dark:text-gray-200">{label}</span>
+      <input {...props} className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-gray-900 outline-none transition focus:border-red-500 focus:ring-4 focus:ring-red-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white" />
+    </label>
+  );
+}
+
+function Info({ icon: Icon, text }) {
+  return <div className="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-300"><Icon size={17} className="shrink-0 text-red-500" /><span className="truncate">{text}</span></div>;
+}
+>>>>>>> e58e0048bc8f63c97e42ffce1f315267b42aecc0
