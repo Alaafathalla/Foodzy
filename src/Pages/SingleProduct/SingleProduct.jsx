@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, { useMemo, useState } from "react";
 import { Heart, Minus, Plus, Share2, ShoppingCart, Star } from "lucide-react";
 import { useLocation } from "react-router-dom";
@@ -13,33 +12,6 @@ export default function SingleProduct() {
   const addToCart = useCartStore((state) => state.addToCart);
   const toggleWishlist = useWishlistStore((state) => state.toggleWishlist);
   const isInWishlist = useWishlistStore((state) => state.isInWishlist);
-=======
-import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
-import product from "../../assets/products/p7.png";
-
-export default function SidebarSimple({ onApply = (f) => console.log(f) }) {
-  const location = useLocation();
-  const selectedProduct = location.state?.product || null;
-  // ---- sidebar demo data
-  const categories = [
-    { id: "juice", label: "Juice & Drinks", count: 20 },
-    { id: "dairy", label: "Dairy & Milk", count: 54 },
-    { id: "snack", label: "Snack & Spice", count: 84 },
-  ];
-  const colors = [
-    { id: "blue", label: "Blue", dot: "bg-blue-500" },
-    { id: "yellow", label: "Yellow", dot: "bg-yellow-400" },
-    { id: "red", label: "Red", dot: "bg-red-500" },
-    { id: "green", label: "Green", dot: "bg-green-500" },
-  ];
-  const weights = [
-    { id: "2kg", label: "2kg Pack" },
-    { id: "20kg", label: "20kg Pack" },
-    { id: "30kg", label: "30kg Pack" },
-  ];
-  const tags = ["Vegetables", "Juice", "Food", "Dry Fruits", "Vegetables", "Juice"];
->>>>>>> e58e0048bc8f63c97e42ffce1f315267b42aecc0
 
   const currentProduct = useMemo(
     () => ({
@@ -56,13 +28,7 @@ export default function SidebarSimple({ onApply = (f) => console.log(f) }) {
     [selectedProduct]
   );
 
-<<<<<<< HEAD
   const gallery = [currentProduct.image, currentProduct.image, currentProduct.image, currentProduct.image];
-=======
-  // ---------- MAIN PRODUCT (simple functions only)
-  const mainImage = selectedProduct?.image || product;
-  const gallery = [mainImage, mainImage, mainImage, mainImage, mainImage]; // demo thumbs
->>>>>>> e58e0048bc8f63c97e42ffce1f315267b42aecc0
   const [activeImg, setActiveImg] = useState(0);
   const [sizeSel, setSizeSel] = useState("100g");
   const [qty, setQty] = useState(1);
@@ -86,228 +52,11 @@ export default function SidebarSimple({ onApply = (f) => console.log(f) }) {
   };
 
   return (
-<<<<<<< HEAD
     <section className="min-h-screen bg-gray-50 px-4 py-8 text-gray-900 transition-colors dark:bg-gray-950 dark:text-white sm:px-6 sm:py-10 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <div className="mb-6">
           <p className="text-sm font-semibold text-red-500">Products / {currentProduct.category}</p>
           <h1 className="mt-2 text-2xl font-black sm:text-3xl">Product details</h1>
-=======
-    <div className="flex p-20 gap-4">
-      {/* Sidebar - 1/3 width */}
-      <aside className="w-1/3 max-w-[300px] space-y-4 rounded-2xl bg-gray-50 p-4">
-        <Section title="Product Category">
-          <ul className="space-y-2">
-            {categories.map((c) => (
-              <li key={c.id} className="flex items-center justify-between">
-                <label className="flex items-center gap-2">
-                  <input
-                    type="checkbox"
-                    className="size-4 rounded border-gray-300 text-primary focus:ring-primary"
-                    checked={catSel.includes(c.id)}
-                    onChange={() => toggle(c.id, catSel, setCatSel)}
-                  />
-                  <span className="text-sm text-gray-700">{c.label}</span>
-                </label>
-                <span className="rounded bg-gray-100 px-1.5 py-0.5 text-xs text-gray-500">
-                  {c.count}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </Section>
-
-        <Section title="Filter By Price">
-          <div className="mb-3 text-sm text-gray-600">
-            Price : ${minPrice} – ${maxPrice}
-          </div>
-          <input
-            type="range"
-            min={PRICE_MIN}
-            max={PRICE_MAX}
-            value={minPrice}
-            onChange={(e) => setMinPrice(Math.min(Number(e.target.value), maxPrice))}
-            className="mb-3 w-full accent-primary"
-          />
-          <button
-            type="button"
-            onClick={applyFilters}
-            className="w-full rounded-xl bg-gray-100 px-3 py-2 text-sm font-semibold text-gray-600 transition hover:opacity-90"
-          >
-            Filter
-          </button>
-        </Section>
-
-        <Section title="Colors">
-          <ul className="space-y-2">
-            {colors.map((c) => (
-              <li key={c.id} className="flex items-center justify-between">
-                <label className="flex items-center gap-2">
-                  <input
-                    type="checkbox"
-                    className="size-4 rounded border-gray-300 text-primary focus:ring-primary"
-                    checked={colorSel.includes(c.id)}
-                    onChange={() => toggle(c.id, colorSel, setColorSel)}
-                  />
-                  <span className="text-sm text-gray-700">{c.label}</span>
-                </label>
-                <span className={`inline-block size-3 rounded-full ring-2 ring-white ${c.dot}`} />
-              </li>
-            ))}
-          </ul>
-        </Section>
-
-        <Section title="Weight">
-          <ul className="space-y-2">
-            {weights.map((w) => (
-              <li key={w.id} className="flex items-center gap-2">
-                <input
-                  type="checkbox"
-                  className="size-4 rounded border-gray-300 text-primary focus:ring-primary"
-                  checked={weightSel.includes(w.id)}
-                  onChange={() => toggle(w.id, weightSel, setWeightSel)}
-                />
-                <label className="text-sm text-gray-700">{w.label}</label>
-              </li>
-            ))}
-          </ul>
-        </Section>
-
-        <Section title="Product Tags">
-          <div className="flex flex-wrap gap-2">
-            {tags.map((t, i) => {
-              const active = tagSel.includes(t);
-              return (
-                <button
-                  type="button"
-                  key={`${t}-${i}`}
-                  onClick={() =>
-                    active ? setTagSel(tagSel.filter((x) => x !== t)) : setTagSel([...tagSel, t])
-                  }
-                  className={`rounded-full border px-3 py-1 text-xs ${
-                    active
-                      ? "border-primary bg-primary/10 text-primary"
-                      : "border-gray-300 text-gray-700 hover:bg-gray-100"
-                  }`}
-                >
-                  {t}
-                </button>
-              );
-            })}
-          </div>
-        </Section>
-
-        <button
-          type="button"
-          onClick={reset}
-          className="w-full rounded-xl border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100"
-        >
-          Reset filters
-        </button>
-      </aside>
-
-      {/* Main content - 2/3 width */}
-      <div className="w-2/3 space-y-8 rounded-2xl bg-gray-50 p-6">
-        {/* Top: gallery + details */}
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-          {/* Gallery */}
-          <div>
-            <div className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-100">
-              <img src={gallery[activeImg]} alt="product" className="mx-auto max-h-96 object-contain" />
-            </div>
-
-            <div className="mt-4 flex gap-3 overflow-x-auto">
-              {gallery.map((src, i) => (
-                <button
-                  key={i}
-                  onClick={() => setActiveImg(i)}
-                  className={`h-20 w-24 shrink-0 rounded-xl border p-1 transition ${
-                    activeImg === i ? "border-primary ring-2 ring-primary/30" : "border-gray-200"
-                  }`}
-                >
-                  <img src={src} alt={`thumb-${i}`} className="h-full w-full object-contain" />
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Details */}
-          <div className="space-y-3">
-            <h2 className="text-2xl font-semibold text-gray-900">
-              {selectedProduct?.title || "Seeds Of Change Organic Quinoa, Brown"}
-            </h2>
-            <p className="text-sm text-gray-500">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. In, iure minus error
-              doloribus saepe natus?
-            </p>
-
-            {/* rating + reviews */}
-            <div className="flex items-center gap-2 pt-1 text-amber-500">
-              {"★★★★★"}
-              <span className="text-xs text-gray-500">(75 Review)</span>
-            </div>
-
-            {/* specs */}
-            <ul className="mt-2 grid grid-cols-1 gap-1 text-sm">
-              {specs.map(({ k, v }) => (
-                <li key={k} className="flex">
-                  <span className="w-24 shrink-0 text-gray-500">{k}</span>
-                  <span className="text-gray-700">: {v}</span>
-                </li>
-              ))}
-            </ul>
-
-            {/* price */}
-            <div className="flex items-end gap-3 pt-3">
-              <span className="text-2xl font-bold text-primary">${Number(selectedProduct?.price ?? 120.25).toFixed(2)}</span>
-              <span className="text-sm text-gray-400 line-through">${Number(selectedProduct?.oldPrice ?? 123.25).toFixed(2)}</span>
-            </div>
-
-            {/* size/weight */}
-            <div className="pt-2">
-              <div className="mb-2 text-sm font-medium text-gray-700">Size/Weight :</div>
-              <div className="flex flex-wrap gap-2">
-                {sizes.map((s) => (
-                  <button
-                    key={s}
-                    onClick={() => setSizeSel(s)}
-                    className={`rounded-md border px-3 py-1 text-sm ${
-                      sizeSel === s
-                        ? "border-primary bg-primary/10 text-primary"
-                        : "border-gray-300 text-gray-700 hover:bg-gray-100"
-                    }`}
-                  >
-                    {s}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* qty + add to cart */}
-            <div className="flex flex-wrap items-center gap-3 pt-2">
-              <div className="flex items-center rounded-lg border border-gray-300">
-                <button onClick={dec} className="px-3 py-2 text-lg leading-none">-</button>
-                <input
-                  readOnly
-                  value={qty}
-                  className="w-12 border-x border-gray-300 py-2 text-center outline-none"
-                />
-                <button onClick={inc} className="px-3 py-2 text-lg leading-none">+</button>
-              </div>
-
-              <button className="rounded-xl bg-primary px-5 py-2 text-sm font-semibold text-white hover:opacity-90">
-                Add To Cart
-              </button>
-
-              <button className="rounded-xl border border-gray-300 bg-white px-3 py-2 text-sm text-gray-700">
-                ♡
-              </button>
-              <button className="rounded-xl border border-gray-300 bg-white px-3 py-2 text-sm text-gray-700">
-                ⤴
-              </button>
-            </div>
-          </div>
->>>>>>> e58e0048bc8f63c97e42ffce1f315267b42aecc0
         </div>
 
         <div className="grid gap-6 xl:grid-cols-[280px_minmax(0,1fr)]">
