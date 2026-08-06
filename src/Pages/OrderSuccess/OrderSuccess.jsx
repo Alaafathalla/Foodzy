@@ -6,7 +6,7 @@ export default function OrderSuccessPage() {
   const location = useLocation();
   const orderId = location.state?.orderId || "ORD-" + Math.floor(Math.random() * 1000000).toString().padStart(6, "0");
   const total = location.state?.total ?? 0;
-  const trackingNo = "TRK" + Math.floor(Math.random() * 900000000 + 100000000);
+  const trackingNo = location.state?.trackingNo || "TRK" + Math.floor(Math.random() * 900000000 + 100000000);
 
   const steps = [
     { icon: CheckCircle, title: "Order Confirmed", desc: "Your order has been placed successfully", done: true },
@@ -102,6 +102,11 @@ export default function OrderSuccessPage() {
           <Link to="/">
             <button className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-4 rounded-2xl border-2 border-gray-300 dark:border-gray-600 text-gray-800 dark:text-white hover:border-black dark:hover:border-white font-bold transition">
               <Home size={18} /> Back to Home
+            </button>
+          </Link>
+          <Link to="/order-tracking" state={{ orderId, total, trackingNo }}>
+            <button className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-4 rounded-2xl bg-gray-900 hover:bg-black text-white font-bold transition dark:bg-white dark:text-gray-900">
+              <Truck size={18} /> Track Order
             </button>
           </Link>
           <Link to="/products">

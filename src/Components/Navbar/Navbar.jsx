@@ -7,9 +7,11 @@ import {
   Heart,
   ShoppingCart,
   X,
+  Bell,
+  UserRound,
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
-import logo from "../../assets/logo.png";
+import { foodzyLogo as logo } from "../../assets";
 import useWishlistStore from "../../store/wishlistStore";
 import useCartStore from "../../store/cartStore";
 import { authService } from "../../services";
@@ -105,6 +107,8 @@ const Navbar = () => {
               ) : (
                 <button onClick={logout} className="block text-left text-red-600 w-full py-2 font-semibold">Logout</button>
               )}
+              <Link to="/profile" className="block py-2" onClick={() => setIsMobileMenuOpen(false)}>Profile</Link>
+              <Link to="/notifications" className="block py-2" onClick={() => setIsMobileMenuOpen(false)}>Notifications</Link>
               <Link to="/wishlist" className="block py-2 flex items-center justify-between" onClick={() => setIsMobileMenuOpen(false)}>
                 <span>Wishlist</span>
                 {wishlistCount > 0 && (
@@ -148,16 +152,22 @@ const Navbar = () => {
 
           {/* Actions */}
           <div className="flex items-center gap-5 text-sm text-gray-700 dark:text-gray-200 whitespace-nowrap">
+            <Link to="/profile" className="flex items-center gap-1.5 hover:text-red-500 transition font-medium">
+              <UserRound size={18} />
+              <span>{isLoggedIn ? (userName || "Profile") : "Profile"}</span>
+            </Link>
+            <Link to="/notifications" aria-label="Notifications" className="relative flex items-center gap-1.5 hover:text-red-500 transition font-medium">
+              <Bell size={19} />
+              <span>Notifications</span>
+              <span className="absolute -right-1 -top-1 h-2 w-2 rounded-full bg-red-500" />
+            </Link>
             {!isLoggedIn ? (
               <Link to="/login" className="flex items-center gap-1.5 hover:text-red-500 transition font-medium">
                 <User size={18} />
                 <span>Login</span>
               </Link>
             ) : (
-              <button onClick={logout} className="flex items-center gap-1.5 hover:text-red-500 transition font-medium">
-                <User size={18} />
-                <span>Logout</span>
-              </button>
+              <button onClick={logout} className="hover:text-red-500 transition font-medium">Logout</button>
             )}
             <Link to="/wishlist" className="flex items-center gap-1.5 hover:text-red-500 transition font-medium relative">
               <Heart size={18} />

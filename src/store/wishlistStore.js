@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { commerceService } from "../services/commerceService";
+import { notify } from "../Components/Toast/ToastProvider";
 
 const productId = (item) => item?.product_id ?? item?.product?.id ?? item?.id;
 const normalizeItem = (item) => ({ ...(item.product || item), ...item, id: productId(item) });
@@ -16,9 +17,10 @@ const useWishlistStore = create(persist((set, get) => ({
   addToWishlist: async (product) => {
     const id = productId(product); if (id == null || get().wishlist.some((i) => productId(i) === id)) return;
     set((s) => ({ wishlist: [...s.wishlist, { ...product, id }] }));
+    notify(`${product?.name || "Item"} added to wishlist`, "wishlist");
     if (hasToken()) try { await commerceService.addToWishlist(id); } catch (_) {}
   },
-  removeFromWishlist: async (id) => { set((s) => ({ wishlist: s.wishlist.filter((i) => productId(i) !== id) })); if (hasToken()) try { await commerceService.removeWishlistItem(id); } catch (_) {} },
+  removeFromWishlist: async (id) => { set((s) => ({ wishlist: s.wishlist.filter((i) => productId(i) !== id) })); notify("Item removed from wishlist", "wishlist"); if (hasToken()) try { await commerceService.removeWishlistItem(id); } catch (_) {} },
   toggleWishlist: async (product) => { const id = productId(product); if (get().wishlist.some((i) => productId(i) === id)) await get().removeFromWishlist(id); else await get().addToWishlist(product); },
   isInWishlist: (id) => get().wishlist.some((i) => productId(i) === id),
   clearWishlist: () => set({ wishlist: [] }),

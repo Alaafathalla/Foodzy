@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { ChevronRight, Filter, Heart, ShoppingCart, Star, Grid3X3, List } from "lucide-react";
 import useCartStore from "../../store/cartStore";
@@ -307,8 +308,9 @@ export default function CategoryPage() {
 }
 
 function ProductCard({ product, onAddToCart, isInWishlist, toggleWishlist }) {
+  const navigate = useNavigate();
   return (
-    <div className="group rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 overflow-hidden hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
+    <div onClick={() => navigate(`/products/${product.id}`, { state: { product } })} className="group cursor-pointer rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 overflow-hidden hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
       <div className="relative bg-gray-50 dark:bg-gray-900 p-5 aspect-square overflow-hidden">
         <img
           src={product.image}
@@ -326,7 +328,7 @@ function ProductCard({ product, onAddToCart, isInWishlist, toggleWishlist }) {
           </span>
         )}
         <button
-          onClick={toggleWishlist}
+          onClick={(event) => { event.stopPropagation(); toggleWishlist(); }}
           className={`absolute top-3 right-3 w-9 h-9 rounded-xl flex items-center justify-center shadow-md transition ${
             isInWishlist
               ? "bg-slate-600 text-white"
@@ -359,7 +361,7 @@ function ProductCard({ product, onAddToCart, isInWishlist, toggleWishlist }) {
             )}
           </div>
           <button
-            onClick={() => onAddToCart(product)}
+            onClick={(event) => { event.stopPropagation(); onAddToCart(product); }}
             className="w-10 h-10 rounded-xl bg-black hover:bg-slate-600 text-white flex items-center justify-center transition"
             title="Add to Cart"
           >
@@ -372,8 +374,9 @@ function ProductCard({ product, onAddToCart, isInWishlist, toggleWishlist }) {
 }
 
 function ProductListCard({ product, onAddToCart, isInWishlist, toggleWishlist }) {
+  const navigate = useNavigate();
   return (
-    <div className="group rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 overflow-hidden hover:shadow-xl transition-all duration-300">
+    <div onClick={() => navigate(`/products/${product.id}`, { state: { product } })} className="group cursor-pointer rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 overflow-hidden hover:shadow-xl transition-all duration-300">
       <div className="flex flex-col sm:flex-row gap-0">
         <div className="relative bg-gray-50 dark:bg-gray-900 p-5 sm:w-56 aspect-square sm:aspect-auto overflow-hidden">
           <img
@@ -419,7 +422,7 @@ function ProductListCard({ product, onAddToCart, isInWishlist, toggleWishlist })
             </div>
             <div className="flex items-center gap-2">
               <button
-                onClick={toggleWishlist}
+                onClick={(event) => { event.stopPropagation(); toggleWishlist(); }}
                 className={`w-11 h-11 rounded-xl border-2 flex items-center justify-center transition ${
                   isInWishlist
                     ? "border-slate-500 bg-slate-50 text-slate-600 dark:bg-slate-900/30 dark:text-slate-300"
@@ -429,7 +432,7 @@ function ProductListCard({ product, onAddToCart, isInWishlist, toggleWishlist })
                 <Heart size={18} fill={isInWishlist ? "currentColor" : "none"} />
               </button>
               <button
-                onClick={() => onAddToCart(product)}
+                onClick={(event) => { event.stopPropagation(); onAddToCart(product); }}
                 className="px-6 py-3 rounded-xl bg-black hover:bg-slate-600 text-white font-semibold flex items-center gap-2 transition"
               >
                 <ShoppingCart size={18} />
