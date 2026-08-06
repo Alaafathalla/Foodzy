@@ -17,6 +17,10 @@ import Category from "./Pages/Category/Category";
 import Contact from "./Pages/Contact/Contact";
 import OrderSuccess from "./Pages/OrderSuccess/OrderSuccess";
 import NotFound from "./Pages/NotFound/NotFound";
+import Profile from "./Pages/Profile/Profile";
+import Notifications from "./Pages/Notifications/Notifications";
+import OrderTracking from "./Pages/OrderTracking/OrderTracking";
+import ToastProvider from "./Components/Toast/ToastProvider";
 import "./App.css";
 import { FaSun, FaMoon } from "react-icons/fa";
 import useCartStore from "./store/cartStore";
@@ -64,6 +68,7 @@ function App() {
       </div>
 
       {/* App Layout */}
+      <ToastProvider />
       <Navbar />
       <main>
         <Routes>
@@ -79,8 +84,12 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/singleproduct" element={<SingleProduct />} />
+          <Route path="/products/:productId" element={<SingleProduct />} />
           <Route path="/wishlist" element={<Wishlist />} />
           <Route path="/order-success" element={<OrderSuccess />} />
+          <Route path="/order-tracking" element={<OrderTracking />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/notifications" element={<Notifications />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

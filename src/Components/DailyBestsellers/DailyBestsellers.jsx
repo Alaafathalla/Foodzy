@@ -97,7 +97,8 @@ export default function DailyBestsellers() {
               return (
                 <div
                   key={p.id}
-                  className="group relative bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-2xl overflow-hidden hover:shadow-2xl hover:-translate-y-1 transition-all duration-500"
+                  onClick={() => navigate(`/products/${p.id}`, { state: { product: p } })}
+                  className="group cursor-pointer relative bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-2xl overflow-hidden hover:shadow-2xl hover:-translate-y-1 transition-all duration-500"
                 >
                   {/* Image */}
                   <div className="relative aspect-square overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
@@ -117,7 +118,7 @@ export default function DailyBestsellers() {
                       </span>
                     )}
                     <button
-                      onClick={() => toggleWishlist(p)}
+                      onClick={(event) => { event.stopPropagation(); toggleWishlist(p); }}
                       aria-label={inWishlist ? "Remove from wishlist" : "Add to wishlist"}
                       className={`absolute top-3 right-3 z-10 w-9 h-9 rounded-full flex items-center justify-center shadow transition-all duration-300 hover:scale-110 ${
                         inWishlist
@@ -137,7 +138,7 @@ export default function DailyBestsellers() {
                     {/* Quick Add */}
                     <button
                       type="button"
-                      onClick={() => { addToCart(p); navigate("/cart"); }}
+                      onClick={(event) => { event.stopPropagation(); addToCart(p); }}
                       className="absolute bottom-3 left-1/2 z-10 inline-flex min-w-[132px] -translate-x-1/2 translate-y-2 items-center justify-center gap-2 rounded-full bg-red-500 px-5 py-2.5 text-xs font-bold text-white opacity-0 shadow-lg transition-all duration-300 hover:bg-red-600 hover:shadow-xl group-hover:translate-y-0 group-hover:opacity-100 active:scale-95"
                     >
                       <ShoppingCart size={14} />

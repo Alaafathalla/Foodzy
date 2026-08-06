@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Heart, Trash2, ShoppingCart, ChevronLeft } from "lucide-react";
 import useWishlistStore from "../../store/wishlistStore";
 import useCartStore from "../../store/cartStore";
@@ -9,13 +9,15 @@ import cart8 from "../../assets/cart/8.png";
 import cart9 from "../../assets/cart/9.png";
 
 function ProductCard({ product }) {
+  const navigate = useNavigate();
   const { addToWishlist, isInWishlist } = useWishlistStore();
   const addToCart = useCartStore((state) => state.addToCart);
   const inWishlist = isInWishlist(product.id);
   
   return (
     <div
-      className="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 p-4 hover:shadow-md transition"
+      onClick={() => navigate(`/products/${product.id}`, { state: { product } })}
+      className="cursor-pointer rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 p-4 hover:shadow-md transition"
     >
       <div className="w-full rounded-xl overflow-hidden bg-gray-50 dark:bg-gray-800">
         <img
@@ -41,11 +43,11 @@ function ProductCard({ product }) {
         </div>
 
         <div className="mt-3 flex gap-2">
-          <button onClick={() => addToCart(product)} className="flex-1 rounded-md border border-gray-200 dark:border-gray-700 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-800">
+          <button onClick={(event) => { event.stopPropagation(); addToCart(product); }} className="flex-1 rounded-md border border-gray-200 dark:border-gray-700 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-800">
             Add to Cart
           </button>
           <button
-            onClick={() => addToWishlist(product)}
+            onClick={(event) => { event.stopPropagation(); addToWishlist(product); }}
             className={`p-2 rounded-md border ${inWishlist ? 'border-red-500 text-red-500' : 'border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800'}`}
           >
             <Heart size={16} fill={inWishlist ? 'currentColor' : 'none'} />

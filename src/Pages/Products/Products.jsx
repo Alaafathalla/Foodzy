@@ -20,7 +20,7 @@ function Rating({ value }) {
 function ProductCard({ p, onAdd, isInWishlist, toggleWishlist }) {
   const navigate = useNavigate();
   return (
-    <div className="group rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 p-4 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+    <div onClick={() => navigate(`/products/${p.id}`, { state: { product: p } })} className="group cursor-pointer rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 p-4 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
       <div className="relative aspect-[4/3] rounded-xl overflow-hidden bg-gray-50 dark:bg-gray-800 mb-3">
         {p.tag && (
           <span className={`absolute left-2 top-2 text-[11px] font-bold px-2 py-0.5 rounded-full ${
@@ -70,9 +70,9 @@ function ProductCard({ p, onAdd, isInWishlist, toggleWishlist }) {
           {p.oldPrice && <span className="text-xs text-gray-400 line-through">${p.oldPrice.toFixed(2)}</span>}
         </div>
         <button
-          onClick={() => {
+          onClick={(event) => {
+            event.stopPropagation();
             onAdd(p);
-            navigate("/cart");
           }}
           className="inline-flex items-center justify-center gap-1.5 rounded-full bg-red-500 px-4 py-2 text-sm font-bold text-white shadow-sm transition-all duration-300 hover:bg-red-600 hover:shadow-md active:scale-95"
         >

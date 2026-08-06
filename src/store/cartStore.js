@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { commerceService } from "../services/commerceService";
+import { notify } from "../Components/Toast/ToastProvider";
 
 const productId = (item) => item?.product_id ?? item?.product?.id ?? item?.id;
 const normalizeItem = (item) => ({ ...(item.product || item), ...item, id: productId(item), qty: Number(item.qty ?? item.quantity ?? 1) });
@@ -19,6 +20,7 @@ const useCartStore = create(persist((set, get) => ({
       const found = state.cart.find((item) => productId(item) === id);
       return { cart: found ? state.cart.map((item) => productId(item) === id ? { ...item, qty: item.qty + qty } : item) : [...state.cart, { ...product, id, qty }] };
     });
+    notify(`${product?.name || "Item"} added to cart`, "cart");
     if (hasToken()) try { await commerceService.addToCart(id, qty); } catch (_) {}
   },
   removeFromCart: async (id) => { set((s) => ({ cart: s.cart.filter((i) => productId(i) !== id) })); if (hasToken()) try { await commerceService.removeCartItem(id); } catch (_) {} },

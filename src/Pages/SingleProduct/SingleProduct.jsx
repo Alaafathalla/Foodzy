@@ -1,7 +1,10 @@
 import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
 import product from "../../assets/products/p7.png";
 
 export default function SidebarSimple({ onApply = (f) => console.log(f) }) {
+  const location = useLocation();
+  const selectedProduct = location.state?.product || null;
   // ---- sidebar demo data
   const categories = [
     { id: "juice", label: "Juice & Drinks", count: 20 },
@@ -69,7 +72,8 @@ export default function SidebarSimple({ onApply = (f) => console.log(f) }) {
   );
 
   // ---------- MAIN PRODUCT (simple functions only)
-  const gallery = [product, product, product, product, product]; // demo thumbs
+  const mainImage = selectedProduct?.image || product;
+  const gallery = [mainImage, mainImage, mainImage, mainImage, mainImage]; // demo thumbs
   const [activeImg, setActiveImg] = useState(0);
   const sizes = ["50g", "80g", "100g", "200g"];
   const [sizeSel, setSizeSel] = useState(sizes[0]);
@@ -231,7 +235,7 @@ export default function SidebarSimple({ onApply = (f) => console.log(f) }) {
           {/* Details */}
           <div className="space-y-3">
             <h2 className="text-2xl font-semibold text-gray-900">
-              Seeds Of Change Oraganic Quinoa, Brown
+              {selectedProduct?.title || "Seeds Of Change Organic Quinoa, Brown"}
             </h2>
             <p className="text-sm text-gray-500">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. In, iure minus error
@@ -256,8 +260,8 @@ export default function SidebarSimple({ onApply = (f) => console.log(f) }) {
 
             {/* price */}
             <div className="flex items-end gap-3 pt-3">
-              <span className="text-2xl font-bold text-primary">$120.25</span>
-              <span className="text-sm text-gray-400 line-through">$123.25</span>
+              <span className="text-2xl font-bold text-primary">${Number(selectedProduct?.price ?? 120.25).toFixed(2)}</span>
+              <span className="text-sm text-gray-400 line-through">${Number(selectedProduct?.oldPrice ?? 123.25).toFixed(2)}</span>
             </div>
 
             {/* size/weight */}

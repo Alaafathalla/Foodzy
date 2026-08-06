@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { CreditCard, Truck, ChevronRight, MapPin, ShieldCheck, Package, Check, ChevronDown, Loader2 } from "lucide-react";
 import useCartStore from "../../store/cartStore";
 import { orderService } from "../../services";
+import { notify } from "../../Components/Toast/ToastProvider";
 
 export default function CheckoutPage() {
   const navigate = useNavigate();
@@ -50,17 +51,18 @@ export default function CheckoutPage() {
         total,
       };
       const result = await orderService.placeOrder(orderData);
-      clearCart();
-      navigate("/order-success", {
-        state: {
-          orderId: result.orderId,
-          total,
-          trackingNo: result.trackingNo,
-        },
-      });
+      const placedOrder = {
+        orderId: result.orderId,
+        total,
+        trackingNo: result.trackingNo,
+      };
+      localStorage.setItem("foodzy-last-order", JSON.stringify(placedOrder));
+      await clearCart();
+      notify("Order placed successfully", "success");
+      navigate("/order-success", { state: placedOrder });
     } catch (err) {
       console.error("Order error:", err);
-      alert("Failed to place order. Please try again.");
+      notify("Failed to place order. Please try again.", "success");
     } finally {
       setPlacingOrder(false);
     }
