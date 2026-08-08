@@ -1,7 +1,14 @@
 #root {
+  min-height: 100%;
   text-align: center;
-  background-color: white;
-  color: black;
+  background-color: #ffffff;
+  color: #111827;
+  transition: background-color 300ms ease, color 300ms ease;
+}
+
+html.dark #root {
+  background-color: #111827;
+  color: #f9fafb;
 }
 
 .logo {
@@ -10,26 +17,17 @@
   will-change: filter;
   transition: filter 300ms;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
+
+.logo:hover { filter: drop-shadow(0 0 2em #646cffaa); }
+.logo.react:hover { filter: drop-shadow(0 0 2em #61dafbaa); }
 
 @keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+  a:nth-of-type(2) .logo { animation: logo-spin infinite 20s linear; }
 }
 
 .card {
@@ -38,33 +36,10 @@
   border-radius: 8px;
 }
 
-/* Light mode default */
-.read-the-docs {
-  color: #888;
+html.dark .card {
+  background-color: #1f2937;
+  color: #e5e7eb;
 }
 
-/* 🔥 DARK MODE OVERRIDES */
-@media (prefers-color-scheme: dark) {
-  #root {
-    background-color: #121212;
-    color: #f0f0f0;
-  }
-
-  .card {
-    background-color: #1e1e1e;
-    color: #e0e0e0;
-  }
-
-  .read-the-docs {
-    color: #aaa;
-  }
-
-  .logo:hover {
-    filter: drop-shadow(0 0 2em #00e0ffaa);
-  }
-
-  .logo.react:hover {
-    filter: drop-shadow(0 0 2em #00f6ffbb);
-  }
-}
-
+.read-the-docs { color: #888; }
+html.dark .read-the-docs { color: #aaa; }

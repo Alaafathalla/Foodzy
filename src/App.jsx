@@ -20,6 +20,9 @@ import NotFound from "./Pages/NotFound/NotFound";
 import Profile from "./Pages/Profile/Profile";
 import Notifications from "./Pages/Notifications/Notifications";
 import OrderTracking from "./Pages/OrderTracking/OrderTracking";
+import Deals from "./Pages/Deals/Deals";
+import PrivacyPolicy from "./Pages/PrivacyPolicy/PrivacyPolicy";
+import TermsConditions from "./Pages/TermsConditions/TermsConditions";
 import ToastProvider from "./Components/Toast/ToastProvider";
 import "./App.css";
 import { FaSun, FaMoon } from "react-icons/fa";
@@ -90,6 +93,9 @@ function App() {
           <Route path="/order-tracking" element={<OrderTracking />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/notifications" element={<Notifications />} />
+          <Route path="/deals" element={<Deals />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/terms-conditions" element={<TermsConditions />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

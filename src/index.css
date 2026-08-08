@@ -101,15 +101,5 @@ html, body, #root {
 }
 
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-
-  }
-
-
-}
-
 html.dark { color-scheme: dark; }
 img { max-width: 100%; }

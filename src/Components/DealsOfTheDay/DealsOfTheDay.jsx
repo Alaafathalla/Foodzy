@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { ArrowRight, Star } from 'lucide-react';
 import deal1 from '../../assets/home/deal1.png';
 import deal2 from '../../assets/home/deal2.png';
@@ -48,12 +49,12 @@ export default function DealsOfTheDay() {
         <h2 className="text-xl sm:text-2xl font-semibold text-gray-800 dark:text-white">
           Deals Of The Day
         </h2>
-        <a
-          href="/deals"
+        <Link
+          to="/deals"
           className="flex items-center text-sm sm:text-base text-gray-600 dark:text-gray-300 hover:text-red-500 font-medium transition"
         >
           Show All Deals <ArrowRight className="ml-1 w-4 h-4" />
-        </a>
+        </Link>
       </div>
 
       {/* Product Cards */}

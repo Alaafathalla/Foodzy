@@ -19,8 +19,8 @@ const Footer = () => {
   const companyLinks = [
     { label: "About Us", to: "/about" },
     { label: "Delivery Information", to: "/faq" },
-    { label: "Privacy Policy", to: "#" },
-    { label: "Terms & Conditions", to: "#" },
+    { label: "Privacy Policy", to: "/privacy-policy" },
+    { label: "Terms & Conditions", to: "/terms-conditions" },
     { label: "Contact Us", to: "/contact" },
     { label: "Support Center", to: "/contact" },
   ];
